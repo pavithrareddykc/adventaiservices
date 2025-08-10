@@ -198,7 +198,7 @@
         const successMessage = document.getElementById('success-message');
         const errorMessage = document.getElementById('error-message');
 
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
             submitText.classList.add('hidden');
@@ -207,20 +207,35 @@
             errorMessage.classList.add('hidden');
             submitButton.disabled = true;
 
-            // Simulate API call
-            setTimeout(() => {
+            try {
+                const payload = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value,
+                };
+
+                const response = await fetch('http://localhost:5000/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to submit');
+                }
+
+                successMessage.classList.remove('hidden');
+                contactForm.reset();
+            } catch (err) {
+                errorMessage.textContent = err.message || 'Oops! Something went wrong. Please try again.';
+                errorMessage.classList.remove('hidden');
+            } finally {
                 submitText.classList.remove('hidden');
                 loadingSpinner.classList.add('hidden');
                 submitButton.disabled = false;
-
-                // Simulate success
-                successMessage.classList.remove('hidden');
-                contactForm.reset(); // Clear the form
-
-                // Or simulate error
-                // errorMessage.classList.remove('hidden');
-
-            }, 2000);
+            }
         });
     </script>
 </body>

@@ -1,0 +1,13 @@
+# General
+.DS_Store
+__pycache__/
+
+# Backend runtime files
+backend/.venv/
+backend/contacts.db
+backend/backend.log
+backend/backend.pid
+
+# Python
+*.pyc
+
