@@ -213,3 +213,12 @@ Emails are enqueued and sent in a background thread with retries and exponential
 ### Email headers
 - Reply-To is set to the submitter's email so recipients can reply directly.
 - To use the submitter's email as the visible From, set `ALLOW_SUBMITTER_AS_FROM=true` (ensure your SMTP/provider/DKIM policies allow this). Otherwise `MAIL_FROM` is used as From.
+
+### Persistent configuration
+Create `backend/.env` using `backend/.env.example` as a template. Values in `.env` are loaded automatically on server start.
+
+```bash
+cp backend/.env.example backend/.env
+# edit backend/.env with your values
+cd backend && python3 app.py
+```

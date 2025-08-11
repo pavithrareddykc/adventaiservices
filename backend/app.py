@@ -161,7 +161,10 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
         self._send_json({"error": "Not found"}, status=HTTPStatus.NOT_FOUND)
 
 
+from env import load_env_file
+
 def main() -> None:
+    load_env_file(os.getenv("ENV_FILE_PATH", ".env"))
     configure_logging()
     initialize_database()
     email_queue.start()
