@@ -140,28 +140,23 @@ From the project root (`Website/`):
 python3 -m unittest discover -s backend/tests -v
 ```
 
+## Front-end tests (Playwright - Python)
+
+Prerequisites:
+- Python 3.10+
+
+Install and run:
+
+```bash
+pip install playwright
+python -m playwright install chromium
+python -m unittest discover -s frontend/tests -v
+```
+
+This suite mocks calls to `https://adventaiservices.com/api/contact` to cover:
+- Successful submission shows the success message
+- Validation error displays server error text
+- Network failure displays a fetch failure message
+
 ## Database
 - File: `backend/contacts.db`
-- Lifecycle: auto-created on server start
-- Schema: table `contacts(id, name, email, message, created_at)`
-- Reset: stop the server and delete `backend/contacts.db`
-
-## Notes on Requirements
-- The current backend uses only the Python standard library; Flask is not used.
-- `backend/requirements.txt` is legacy and not required for running `app.py`.
-
-## Deploy
-
-### Frontend (static hosting)
-- GitHub Pages: push and enable Pages (Branch: `main`, Folder: `/root`). If using a custom domain, configure DNS and keep `CNAME` present.
-- Any static host (Netlify, Vercel, S3, Nginx): deploy `Website/` as a static site.
-
-### Backend (server)
-- Run `python3 backend/app.py` on a VM/container. Expose port `5000`.
-- To change host/port, edit `HOST`/`PORT` constants in `backend/app.py`.
-
-## Source
-- Original repository: `https://github.com/pavithrareddykc/adventaiservices.git`
-
-## License
-Not specified in the original repository.
