@@ -93,6 +93,49 @@ class BackendIntegrationTests(unittest.TestCase):
         self.assertEqual(code, 400)
         self.assertIn("All fields are required", body)
 
+    def test_storage_fields_exact_match(self):
+        # Submit a payload with surrounding whitespace to verify trimming and exact storage
+        unique_suffix = str(int(time.time() * 1000))
+        raw_name = f"  Alice QA {unique_suffix}  "
+        raw_email = f"  alice.qa+{unique_suffix}@example.com  "
+        raw_message = f"  Hello storage check {unique_suffix}  "
+
+        payload = {
+            "name": raw_name,
+            "email": raw_email,
+            "message": raw_message,
+        }
+
+        code, body = http_post("/api/contact", payload)
+        self.assertEqual(code, 201, msg=body)
+        self.assertIn("Contact submitted successfully", body)
+
+        code, body = http_get("/api/contacts")
+        self.assertEqual(code, 200)
+
+        data = json.loads(body)
+        contacts = data.get("contacts", [])
+        self.assertIsInstance(contacts, list)
+
+        expected_name = raw_name.strip()
+        expected_email = raw_email.strip()
+        expected_message = raw_message.strip()
+
+        # Find the inserted record by unique message
+        match = None
+        for c in contacts:
+            if c.get("message") == expected_message:
+                match = c
+                break
+
+        self.assertIsNotNone(match, msg=f"Did not find stored contact with message: {expected_message}")
+        self.assertEqual(match.get("name"), expected_name)
+        self.assertEqual(match.get("email"), expected_email)
+        self.assertIn("id", match)
+        self.assertIsInstance(match.get("id"), int)
+        self.assertIn("created_at", match)
+        self.assertIsInstance(match.get("created_at"), str)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
