@@ -11,11 +11,8 @@ DB_PATH = "contacts.db"
 HOST = "0.0.0.0"
 PORT = 5000
 
-MAIL_RECIPIENTS = [
-    r.strip()
-    for r in (os.getenv("MAIL_RECIPIENTS", "").split(","))
-    if r.strip()
-]
+def get_mail_recipients() -> list[str]:
+    return [r.strip() for r in os.getenv("MAIL_RECIPIENTS", "").split(",") if r.strip()]
 
 
 from logger_config import configure_logging
@@ -147,9 +144,10 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
                         "email": email,
                         "message": message,
                     })
-                    if MAIL_RECIPIENTS:
+                    recipients = get_mail_recipients()
+                    if recipients:
                         # Use submitter email as Reply-To by default; allow From override via env flag
-                        email_queue.enqueue(MAIL_RECIPIENTS, subject, body, reply_to=email, from_override=email)
+                        email_queue.enqueue(recipients, subject, body, reply_to=email, from_override=email)
                 except Exception as exc:
                     record_event("email_enqueue_failed", {"error": str(exc)})
 
