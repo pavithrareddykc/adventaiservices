@@ -18,6 +18,9 @@ MAIL_RECIPIENTS = [
 ]
 
 
+from logger_config import configure_logging
+from audit import record_event
+
 def initialize_database() -> None:
     connection = sqlite3.connect(DB_PATH)
     cursor = connection.cursor()
@@ -135,6 +138,8 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
                 connection.commit()
                 connection.close()
 
+                record_event("contact_submitted", {"name": name, "email": email})
+
                 # AI craft subject/body and enqueue email (if recipients configured)
                 try:
                     subject, body = craft_subject_and_body({
@@ -145,8 +150,7 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
                     if MAIL_RECIPIENTS:
                         email_queue.enqueue(MAIL_RECIPIENTS, subject, body)
                 except Exception as exc:
-                    # Do not fail the API if email preparation fails
-                    print(f"Email enqueue failed: {exc}")
+                    record_event("email_enqueue_failed", {"error": str(exc)})
 
                 self._send_json({"message": "Contact submitted successfully"}, status=HTTPStatus.CREATED)
             except Exception as exc:  # pragma: no cover - generic failure path
@@ -157,6 +161,7 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
+    configure_logging()
     initialize_database()
     email_queue.start()
     server = ThreadingHTTPServer((HOST, PORT), ContactRequestHandler)

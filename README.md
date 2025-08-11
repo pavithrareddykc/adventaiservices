@@ -204,3 +204,7 @@ Emails are enqueued and sent in a background thread with retries and exponential
   - `RATE_LIMIT_MAX_REQUESTS` (default `10`)
   - `RATE_LIMIT_WINDOW_SECONDS` (default `60`)
 - Honeypot field: the frontend includes a hidden `company` input; if filled, the backend accepts but ignores the submission (no DB insert or email).
+
+### Observability
+- Structured JSON logs to stdout (set `LOG_LEVEL` if needed)
+- Minimal audit trail in SQLite table `audit_events` recording submissions and email events

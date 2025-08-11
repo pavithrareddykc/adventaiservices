@@ -4,7 +4,9 @@ from dataclasses import dataclass
 from queue import Queue, Empty
 from typing import List
 
+import logging
 from mailer import send_email, MailSendError
+from audit import record_event
 
 
 @dataclass
@@ -47,6 +49,7 @@ class EmailQueue:
 
             try:
                 send_email(job.recipients, job.subject, job.body)
+                record_event("email_sent", {"recipients": job.recipients, "subject": job.subject})
             except Exception as exc:  # broad except to ensure job handling
                 job.attempts += 1
                 if job.attempts <= self._max_retries:
@@ -54,11 +57,21 @@ class EmailQueue:
                     backoff = self._base_backoff_seconds * (2 ** (job.attempts - 1))
                     jitter = 0.1 * backoff
                     sleep_for = max(0.1, backoff + (jitter if job.attempts % 2 == 0 else -jitter))
-                    print(f"Email send failed (attempt {job.attempts}/{self._max_retries}): {exc}; retrying in {sleep_for:.2f}s")
+                    logging.warning(
+                        "email_send_failed",
+                        extra={
+                            "attempt": job.attempts,
+                            "max_retries": self._max_retries,
+                            "error": str(exc),
+                            "retry_in_seconds": round(sleep_for, 2),
+                        },
+                    )
+                    record_event("email_send_retry", {"attempt": job.attempts, "error": str(exc)})
                     time.sleep(sleep_for)
                     self._queue.put(job)
                 else:
-                    print(f"Email permanently failed after {job.attempts} attempts: {exc}")
+                    logging.error("email_send_permanent_failure", extra={"error": str(exc), "attempts": job.attempts})
+                    record_event("email_send_failed", {"error": str(exc), "attempts": job.attempts})
             finally:
                 self._queue.task_done()
 
