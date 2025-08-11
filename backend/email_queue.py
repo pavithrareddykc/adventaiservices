@@ -2,7 +2,7 @@ import threading
 import time
 from dataclasses import dataclass
 from queue import Queue, Empty
-from typing import List
+from typing import List, Optional
 
 import logging
 from mailer import send_email, MailSendError
@@ -14,6 +14,8 @@ class EmailJob:
     recipients: List[str]
     subject: str
     body: str
+    reply_to: Optional[str] = None
+    from_override: Optional[str] = None
     attempts: int = 0
 
 
@@ -37,8 +39,8 @@ class EmailQueue:
         if self._thread:
             self._thread.join(timeout=2)
 
-    def enqueue(self, recipients: List[str], subject: str, body: str) -> None:
-        self._queue.put(EmailJob(recipients=recipients, subject=subject, body=body))
+    def enqueue(self, recipients: List[str], subject: str, body: str, *, reply_to: Optional[str] = None, from_override: Optional[str] = None) -> None:
+        self._queue.put(EmailJob(recipients=recipients, subject=subject, body=body, reply_to=reply_to, from_override=from_override))
 
     def _worker(self) -> None:
         while not self._stop_event.is_set():
@@ -48,7 +50,7 @@ class EmailQueue:
                 continue
 
             try:
-                send_email(job.recipients, job.subject, job.body)
+                send_email(job.recipients, job.subject, job.body, reply_to=job.reply_to, from_override=job.from_override)
                 record_event("email_sent", {"recipients": job.recipients, "subject": job.subject})
             except Exception as exc:  # broad except to ensure job handling
                 job.attempts += 1

@@ -148,7 +148,8 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
                         "message": message,
                     })
                     if MAIL_RECIPIENTS:
-                        email_queue.enqueue(MAIL_RECIPIENTS, subject, body)
+                        # Use submitter email as Reply-To by default; allow From override via env flag
+                        email_queue.enqueue(MAIL_RECIPIENTS, subject, body, reply_to=email, from_override=email)
                 except Exception as exc:
                     record_event("email_enqueue_failed", {"error": str(exc)})
 

@@ -179,6 +179,7 @@ The backend now supports sending an email to configured recipients when a contac
 - `SMTP_USE_TLS` (optional, default `true`)
 - `OPENAI_API_KEY` (optional): enables AI-crafted subject/body
 - `OPENAI_MODEL` (optional, default `gpt-4o-mini`)
+- `ALLOW_SUBMITTER_AS_FROM` (optional, default `false`): if true, use the submitter's email as the visible From.
 
 ### Install backend dependencies
 ```bash
@@ -208,3 +209,7 @@ Emails are enqueued and sent in a background thread with retries and exponential
 ### Observability
 - Structured JSON logs to stdout (set `LOG_LEVEL` if needed)
 - Minimal audit trail in SQLite table `audit_events` recording submissions and email events
+
+### Email headers
+- Reply-To is set to the submitter's email so recipients can reply directly.
+- To use the submitter's email as the visible From, set `ALLOW_SUBMITTER_AS_FROM=true` (ensure your SMTP/provider/DKIM policies allow this). Otherwise `MAIL_FROM` is used as From.
