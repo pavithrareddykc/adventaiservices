@@ -10,7 +10,7 @@ A single-page website for Advent AI training and consulting, now with a minimal 
 - **SQLite persistence** with auto-migration (table created on first run)
 
 ### Project Structure
-- `frontend/index.html`: Main single-page site (hero, services, contact, footer)
+- `index.html`: Main single-page site (hero, services, contact, footer)
 - `CNAME`: Custom domain config for GitHub Pages
 - `backend/`
   - `app.py`: Standalone HTTP server (Python stdlib) with CORS enabled
@@ -36,12 +36,12 @@ A single-page website for Advent AI training and consulting, now with a minimal 
 
 ### Frontend
 - Option 1: Open directly
-  - Open `Website/frontend/index.html` in your browser.
+  - Open `Website/index.html` in your browser.
 - Option 2: Serve over a local HTTP server (recommended)
   ```bash
   cd Website
   python3 -m http.server 8000
-  # open http://localhost:8000/frontend/
+  # open http://localhost:8000/
   ```
 
 ## API Reference (Backend)
@@ -86,7 +86,7 @@ A single-page website for Advent AI training and consulting, now with a minimal 
 
 ## Connect the Frontend Form to the Backend
 
-The current `frontend/index.html` simulates submission using `setTimeout`. To use the backend, replace the simulation with a `fetch` call:
+The current `index.html` simulates submission using `setTimeout`. To use the backend, replace the simulation with a `fetch` call:
 
 ```html
 <script>
