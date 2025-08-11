@@ -46,7 +46,7 @@ A single-page website for Advent AI training and consulting, now with a minimal 
 
 ## API Reference (Backend)
 
-- Base URL: `http://localhost:5000`
+- Base URL: `https://adventaiservices.com`
 - CORS: `Access-Control-Allow-Origin: *`
 
 ### Health
@@ -105,7 +105,7 @@ contactForm.addEventListener('submit', async function(e) {
       email: document.getElementById('email').value.trim(),
       message: document.getElementById('message').value.trim()
     };
-    const resp = await fetch('http://localhost:5000/api/contact', {
+    const resp = await fetch('https://adventaiservices.com/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
