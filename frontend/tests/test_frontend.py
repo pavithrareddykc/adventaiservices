@@ -14,9 +14,9 @@ class FrontendE2ETests(unittest.TestCase):
         cls.context = cls.browser.new_context()
         cls.page = cls.context.new_page()
 
-        # Resolve file:// URL to index.html
+        # Resolve file:// URL to frontend/index.html
         repo_root = Path(__file__).resolve().parents[2]
-        index_path = repo_root / "index.html"
+        index_path = repo_root / "frontend" / "index.html"
         cls.index_url = f"file://{index_path}"
 
         # Intercept Tailwind CDN to avoid network dependency but keep 'tailwind' defined
