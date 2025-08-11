@@ -5,7 +5,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 from ai_formatter import craft_subject_and_body
-from mailer import send_email
+from email_queue import email_queue
 
 DB_PATH = "contacts.db"
 HOST = "0.0.0.0"
@@ -117,7 +117,7 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
                 connection.commit()
                 connection.close()
 
-                # AI craft subject/body and send email to recipients (if configured)
+                # AI craft subject/body and enqueue email (if recipients configured)
                 try:
                     subject, body = craft_subject_and_body({
                         "name": name,
@@ -125,10 +125,10 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
                         "message": message,
                     })
                     if MAIL_RECIPIENTS:
-                        send_email(MAIL_RECIPIENTS, subject, body)
+                        email_queue.enqueue(MAIL_RECIPIENTS, subject, body)
                 except Exception as exc:
-                    # Do not fail the API if email sending fails
-                    print(f"Email dispatch failed: {exc}")
+                    # Do not fail the API if email preparation fails
+                    print(f"Email enqueue failed: {exc}")
 
                 self._send_json({"message": "Contact submitted successfully"}, status=HTTPStatus.CREATED)
             except Exception as exc:  # pragma: no cover - generic failure path
@@ -140,6 +140,7 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
 
 def main() -> None:
     initialize_database()
+    email_queue.start()
     server = ThreadingHTTPServer((HOST, PORT), ContactRequestHandler)
     try:
         server.serve_forever()
@@ -147,6 +148,7 @@ def main() -> None:
         pass
     finally:
         server.server_close()
+        email_queue.stop()
 
 
 if __name__ == "__main__":

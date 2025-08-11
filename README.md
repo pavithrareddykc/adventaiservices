@@ -195,3 +195,6 @@ MAIL_FROM="noreply@example.com" MAIL_RECIPIENTS="owner@example.com" python3 app.
 ```
 
 When `SMTP_HOST` is not set, emails will be printed to the console and not actually sent.
+
+### Background email queue
+Emails are enqueued and sent in a background thread with retries and exponential backoff. The API responds quickly (201) even if the email send later fails; failures are logged to stdout. To disable actual SMTP delivery, omit `SMTP_HOST` to use the stdout fallback.
