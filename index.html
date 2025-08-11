@@ -144,6 +144,10 @@
                             <label for="message" class="block text-dark-text font-medium mb-1">Message</label>
                             <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg focus:ring-2 focus:ring-primary-purple focus:border-transparent transition-all text-dark-text placeholder:text-gray-400"></textarea>
                         </div>
+                        <div class="hidden">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" autocomplete="off" tabindex="-1">
+                        </div>
                         <button type="submit" id="submit-button" class="w-full bg-primary-purple text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-purple-700 transition-colors duration-300 transform hover:scale-105 flex items-center justify-center">
                             <span id="submit-text">Send Message</span>
                             <div id="loading-spinner" class="hidden animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
@@ -208,11 +212,12 @@
             submitButton.disabled = true;
 
             try {
-                const payload = {
-                    name: document.getElementById('name').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    message: document.getElementById('message').value.trim(),
-                };
+                                    const payload = {
+                        name: document.getElementById('name').value.trim(),
+                        email: document.getElementById('email').value.trim(),
+                        message: document.getElementById('message').value.trim(),
+                        company: document.getElementById('company').value.trim(), // honeypot
+                    };
 
                 const response = await fetch('https://adventaiservices.com/api/contact', {
                     method: 'POST',

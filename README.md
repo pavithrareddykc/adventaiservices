@@ -198,3 +198,9 @@ When `SMTP_HOST` is not set, emails will be printed to the console and not actua
 
 ### Background email queue
 Emails are enqueued and sent in a background thread with retries and exponential backoff. The API responds quickly (201) even if the email send later fails; failures are logged to stdout. To disable actual SMTP delivery, omit `SMTP_HOST` to use the stdout fallback.
+
+### Abuse prevention
+- Per-IP rate limiting: configurable via env vars
+  - `RATE_LIMIT_MAX_REQUESTS` (default `10`)
+  - `RATE_LIMIT_WINDOW_SECONDS` (default `60`)
+- Honeypot field: the frontend includes a hidden `company` input; if filled, the backend accepts but ignores the submission (no DB insert or email).

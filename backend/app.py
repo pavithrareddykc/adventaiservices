@@ -36,6 +36,12 @@ def initialize_database() -> None:
     connection.close()
 
 
+from rate_limit import build_default_rate_limiter
+
+
+rate_limiter = build_default_rate_limiter()
+
+
 class ContactRequestHandler(BaseHTTPRequestHandler):
     server_version = "ContactHTTP/1.0"
 
@@ -92,12 +98,24 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):  # noqa: N802
         if self.path == "/api/contact":
             try:
+                # Rate limit by client IP
+                ip = self.client_address[0]
+                if not rate_limiter.allow(ip):
+                    self._send_json({"error": "Too many requests"}, status=HTTPStatus.TOO_MANY_REQUESTS)
+                    return
+
                 content_length = int(self.headers.get("Content-Length", "0"))
                 raw_body = self.rfile.read(content_length) if content_length > 0 else b"{}"
                 try:
                     data = json.loads(raw_body.decode("utf-8"))
                 except json.JSONDecodeError:
                     self._send_json({"error": "Invalid JSON"}, status=HTTPStatus.BAD_REQUEST)
+                    return
+
+                # Honeypot trap: reject if filled
+                honeypot = (data.get("company") or "").strip()
+                if honeypot:
+                    self._send_json({"message": "Contact submitted successfully"}, status=HTTPStatus.CREATED)
                     return
 
                 name = (data.get("name") or "").strip()
