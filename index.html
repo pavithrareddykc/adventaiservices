@@ -8,6 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon & app icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+    <meta name="theme-color" content="#6C47FF">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -41,7 +48,10 @@
     <!-- Header & Navigation -->
     <header class="bg-light-bg shadow-lg sticky top-0 z-50">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-dark-text tracking-wide">Advent AI</a>
+            <a href="#" class="flex items-center space-x-3">
+                <img src="/logo.png" alt="Advent AI" class="h-8 w-8 rounded-md shadow-sm" />
+                <span class="text-2xl font-bold text-dark-text tracking-wide">Advent AI</span>
+            </a>
             <div class="hidden md:flex space-x-6 text-dark-text font-medium">
                 <a href="#services" class="hover:text-primary-purple transition-colors">Services</a>
                 <a href="#contact" class="hover:text-primary-purple transition-colors">Contact</a>
