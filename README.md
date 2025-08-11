@@ -172,7 +172,7 @@ The backend now supports sending an email to configured recipients when a contac
 
 ### Environment variables
 - `MAIL_FROM` (required): sender address, e.g. `noreply@example.com`
-- `MAIL_RECIPIENTS` (optional): comma-separated recipient emails, e.g. `ops@example.com,sales@example.com`
+- `MAIL_RECIPIENTS` (optional): comma-separated recipients; supports emails and webhook URLs (http/https). Example: `ops@example.com,https://email.example.com/`
 - `SMTP_HOST` (optional): SMTP host to send real emails. If omitted, emails print to stdout.
 - `SMTP_PORT` (optional, default `587`)
 - `SMTP_USER` / `SMTP_PASS` (optional): SMTP credentials if required
@@ -210,7 +210,7 @@ Emails are enqueued and sent in a background thread with retries and exponential
 - Structured JSON logs to stdout (set `LOG_LEVEL` if needed)
 - Minimal audit trail in SQLite table `audit_events` recording submissions and email events
 
-### Email headers
+### Email headers and webhooks
 - Reply-To is set to the submitter's email so recipients can reply directly.
 - To use the submitter's email as the visible From, set `ALLOW_SUBMITTER_AS_FROM=true` (ensure your SMTP/provider/DKIM policies allow this). Otherwise `MAIL_FROM` is used as From.
 
