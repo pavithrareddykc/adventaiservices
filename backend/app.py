@@ -139,15 +139,21 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
 
                 # AI craft subject/body and enqueue email (if recipients configured)
                 try:
-                    subject, body = craft_subject_and_body({
+                    subject, ai_body = craft_subject_and_body({
                         "name": name,
                         "email": email,
                         "message": message,
                     })
+                    full_body = (
+                        f"{ai_body}\n\n---\nSubmission details:\n"
+                        f"Name: {name}\n"
+                        f"Email: {email}\n\n"
+                        f"Message:\n{message}\n"
+                    )
                     recipients = get_mail_recipients()
                     if recipients:
                         # Use submitter email as Reply-To by default; allow From override via env flag
-                        email_queue.enqueue(recipients, subject, body, reply_to=email, from_override=email)
+                        email_queue.enqueue(recipients, subject, full_body, reply_to=email, from_override=email)
                 except Exception as exc:
                     record_event("email_enqueue_failed", {"error": str(exc)})
 
