@@ -163,6 +163,16 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
                     self._send_json({"error": "All fields are required"}, status=HTTPStatus.BAD_REQUEST)
                     return
 
+                # Additional validation: email format and length limits
+                if len(name) > 200 or len(email) > 320 or len(message) > 4000:
+                    self._send_json({"error": "Fields too long"}, status=HTTPStatus.BAD_REQUEST)
+                    return
+
+                # Very simple email validation
+                if ("@" not in email) or (email.count("@") != 1) or ("." not in email.split("@", 1)[1]) or (" " in email):
+                    self._send_json({"error": "Invalid email"}, status=HTTPStatus.BAD_REQUEST)
+                    return
+
                 connection = sqlite3.connect(DB_PATH)
                 cursor = connection.cursor()
                 cursor.execute(
