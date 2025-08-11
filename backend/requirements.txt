@@ -1,0 +1,3 @@
+# Core Python standard library is used (http.server, sqlite3, smtplib)
+# Optional dependency for AI formatting
+openai>=1.40.0

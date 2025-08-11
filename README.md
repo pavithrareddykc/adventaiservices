@@ -165,3 +165,33 @@ python3 -m unittest discover -s backend/tests -v
 
 ## License
 Not specified in the original repository.
+
+## AI Email Agent (Backend)
+
+The backend now supports sending an email to configured recipients when a contact form is submitted. It will use OpenAI to craft a clear subject/body when `OPENAI_API_KEY` is set; otherwise it falls back to a deterministic format.
+
+### Environment variables
+- `MAIL_FROM` (required): sender address, e.g. `noreply@example.com`
+- `MAIL_RECIPIENTS` (optional): comma-separated recipient emails, e.g. `ops@example.com,sales@example.com`
+- `SMTP_HOST` (optional): SMTP host to send real emails. If omitted, emails print to stdout.
+- `SMTP_PORT` (optional, default `587`)
+- `SMTP_USER` / `SMTP_PASS` (optional): SMTP credentials if required
+- `SMTP_USE_TLS` (optional, default `true`)
+- `OPENAI_API_KEY` (optional): enables AI-crafted subject/body
+- `OPENAI_MODEL` (optional, default `gpt-4o-mini`)
+
+### Install backend dependencies
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Run backend locally
+```bash
+cd backend
+MAIL_FROM="noreply@example.com" MAIL_RECIPIENTS="owner@example.com" python3 app.py
+```
+
+When `SMTP_HOST` is not set, emails will be printed to the console and not actually sent.

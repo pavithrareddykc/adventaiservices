@@ -1,11 +1,21 @@
 import json
 import sqlite3
+import os
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+from ai_formatter import craft_subject_and_body
+from mailer import send_email
 
 DB_PATH = "contacts.db"
 HOST = "0.0.0.0"
 PORT = 5000
+
+MAIL_RECIPIENTS = [
+    r.strip()
+    for r in (os.getenv("MAIL_RECIPIENTS", "").split(","))
+    if r.strip()
+]
 
 
 def initialize_database() -> None:
@@ -106,6 +116,19 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
                 )
                 connection.commit()
                 connection.close()
+
+                # AI craft subject/body and send email to recipients (if configured)
+                try:
+                    subject, body = craft_subject_and_body({
+                        "name": name,
+                        "email": email,
+                        "message": message,
+                    })
+                    if MAIL_RECIPIENTS:
+                        send_email(MAIL_RECIPIENTS, subject, body)
+                except Exception as exc:
+                    # Do not fail the API if email sending fails
+                    print(f"Email dispatch failed: {exc}")
 
                 self._send_json({"message": "Contact submitted successfully"}, status=HTTPStatus.CREATED)
             except Exception as exc:  # pragma: no cover - generic failure path
