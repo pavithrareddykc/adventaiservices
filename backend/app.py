@@ -79,6 +79,17 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+        try:
+            logger.info(
+                "access method=%s path=%s status=%s ip=%s length=%s",
+                self.command,
+                self.path,
+                status,
+                getattr(self, "client_address", ("-",))[0],
+                len(body),
+            )
+        except Exception:
+            pass
 
     def _rate_limit_check(self) -> bool:
         now = time.time()

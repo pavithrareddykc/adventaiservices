@@ -1,6 +1,6 @@
 PY=python3
 
-.PHONY: test backend-test frontend-test up down build
+.PHONY: test backend-test frontend-test up down build backup-db
 
 test: backend-test frontend-test
 
@@ -18,3 +18,6 @@ up:
 
 down:
 	docker compose down -v
+
+backup-db:
+	DB_PATH=backend/contacts.db BACKUP_DIR=backups RETENTION=7 bash scripts/backup_db.sh

@@ -4,13 +4,16 @@ services:
     build:
       context: ./backend
     image: adventai/backend:latest
+    env_file:
+      - .env
     environment:
-      - DB_PATH=/data/contacts.db
-      - HOST=0.0.0.0
-      - PORT=5000
-      - ALLOWED_ORIGIN=http://localhost:8080
-      - MAX_BODY_BYTES=65536
-      - REQUESTS_PER_MINUTE=120
+      - DB_PATH=${DB_PATH}
+      - HOST=${HOST}
+      - PORT=${PORT}
+      - ALLOWED_ORIGIN=${ALLOWED_ORIGIN}
+      - MAX_BODY_BYTES=${MAX_BODY_BYTES}
+      - REQUESTS_PER_MINUTE=${REQUESTS_PER_MINUTE}
+      - TRUST_PROXY=${TRUST_PROXY}
     volumes:
       - contacts_data:/data
     ports:
