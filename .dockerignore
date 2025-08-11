@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node/npm/yarn (not used but safe)
+node_modules/
+
+# VCS
+.git
+.gitignore
+
+# Tests and local data
+backend/tests/
+backend/contacts.db
+frontend/tests/

@@ -1,13 +1,18 @@
 ## Advent AI Services — Website
 
-A single-page website for Advent AI training and consulting, now with a minimal Python backend for contact submissions persisted to SQLite.
+A single-page website for Advent AI training and consulting, now with a minimal
+Python backend for contact submissions persisted to SQLite.
+
 
 ### Features
 - **Responsive UI**: Tailwind CSS via CDN
 - **Smooth navigation** and **mobile menu toggle**
-- **Contact form**: Currently simulates submission on the frontend; a production-ready backend is available under `backend/`
+- **Contact form**: Currently simulates submission on the frontend; a production
+-ready backend is available under `backend/`
+
 - **Backend API**: Health check, submit contact, list contacts
 - **SQLite persistence** with auto-migration (table created on first run)
+- **Production hardening**: env-driven config, security headers, simple rate limit, request size limits
 
 ### Project Structure
 - `index.html`: Main single-page site (hero, services, contact, footer)
@@ -15,8 +20,13 @@ A single-page website for Advent AI training and consulting, now with a minimal 
 - `backend/`
   - `app.py`: Standalone HTTP server (Python stdlib) with CORS enabled
   - `contacts.db`: SQLite database file (auto-created)
-  - `requirements.txt`: Legacy (Flask not used by current server)
+  - `Dockerfile`: Container image for the backend
   - `tests/test_backend.py`: Integration tests that exercise the running server
+- `frontend/`
+  - `Dockerfile`: nginx-based container image to serve `index.html`
+  - `nginx.conf`: Hardened static site configuration
+- `docker-compose.yml`: Local multi-service setup (frontend + backend)
+- `.github/workflows/ci.yml`: CI for tests and image builds
 
 ### Tech Stack
 - Frontend: HTML5, Tailwind CSS (CDN), Inter (Google Fonts), Vanilla JavaScript
@@ -158,5 +168,48 @@ This suite mocks calls to `https://adventaiservices.com/api/contact` to cover:
 - Validation error displays server error text
 - Network failure displays a fetch failure message
 
+## Production deployment
+
+### With Docker Compose (single host)
+```bash
+# build images
+make build
+# run stack
+make up
+# open frontend
+open http://localhost:8080
+```
+- Backend exposed on `localhost:5000` with data volume at `contacts_data`.
+- Frontend served by nginx on `localhost:8080`.
+- Adjust CORS by setting `ALLOWED_ORIGIN` in `docker-compose.yml` or env.
+
+### Backend container (standalone)
+```bash
+docker build -t adventai/backend:latest backend/
+docker run -d --name advent-backend -p 5000:5000 \
+  -e ALLOWED_ORIGIN=https://adventaiservices.com \
+  -v contacts_data:/data \
+  adventai/backend:latest
+```
+
+### Environment configuration (backend)
+- `DB_PATH` (default `/data/contacts.db`)
+- `HOST` (default `0.0.0.0`)
+- `PORT` (default `5000`)
+- `ALLOWED_ORIGIN` (default `*`) – set to your site origin in production
+- `MAX_BODY_BYTES` (default `65536`)
+- `REQUESTS_PER_MINUTE` (default `120`)
+- `TRUST_PROXY` (default `false`) – set `true` if behind a reverse proxy
+
+### Security hardening in backend
+- CORS control via `ALLOWED_ORIGIN`
+- Security headers: `X-Content-Type-Options`, `Referrer-Policy`, `Cache-Control`
+- Request size limit via `MAX_BODY_BYTES`
+- Simple per-IP rate limiting via `REQUESTS_PER_MINUTE`
+- Structured logging
+
 ## Database
 - File: `backend/contacts.db`
+- Lifecycle: auto-created on server start
+- Schema: table `contacts(id, name, email, message, created_at)`
+- Reset: stop the server and delete `backend/contacts.db`
