@@ -5,7 +5,7 @@ A single-page website for Advent AI training and consulting. The frontend uses F
 ### Features
 - **Responsive UI**: Tailwind CSS via CDN
 - **Smooth navigation** and **mobile menu toggle**
-- **Contact form**: Formspree integration with `_subject` and redirect via `_next` to `thanks.html`
+- **Contact form**: Progressive enhancement with inline validation, ARIA live regions, and a Retry button when network fails. Submits to Formspree by default (HTML form), and is enhanced to submit via the backend API when JavaScript is enabled.
 - **Backend API**: Health check, submit contact, list contacts
 - **SQLite persistence** with auto-migration (table created on first run)
 - **Branding assets**: Favicon/app icons and header branding via `logo.png`
@@ -46,6 +46,19 @@ A single-page website for Advent AI training and consulting. The frontend uses F
   python3 -m http.server 8000
   # open http://localhost:8000/
   ```
+
+## Contact Form UX and Validation
+
+The contact form is progressively enhanced to submit via the backend API using `fetch` and provides accessible, user-friendly validation.
+
+- **Client-side limits**:
+  - `name`: required, max 120 characters
+  - `email`: required, valid email format, max 254 characters
+  - `message`: required, max 5000 characters
+- **Inline errors**: Each field shows a specific error under the input and toggles `aria-invalid` appropriately.
+- **ARIA live regions**: Global success (`role="status"`) and error (`role="alert"`) messages are announced to assistive tech and receive focus when shown.
+- **Retry button**: On network failure, a Retry button appears to resubmit the last payload.
+- **Progressive enhancement**: If JavaScript is disabled, the form posts to Formspree as a basic HTML form.
 
 ## API Reference (Backend)
 
@@ -89,49 +102,9 @@ A single-page website for Advent AI training and consulting. The frontend uses F
 
 ## Connect the Frontend Form to the Backend
 
-By default, `index.html` posts to Formspree via a plain HTML form. To use the Python backend instead, remove the form `action` (and Formspree-specific hidden fields like `_next`/`_subject`) and add this `fetch` handler:
+By default, `index.html` posts to Formspree via a plain HTML form. With JavaScript enabled, the page intercepts submission and sends it to the backend (`/api/contact`), providing inline validation, accessible announcements, and a Retry button on failure.
 
-```html
-<script>
-// ... keep existing setup code
-contactForm.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  submitText.classList.add('hidden');
-  loadingSpinner.classList.remove('hidden');
-  successMessage.classList.add('hidden');
-  errorMessage.classList.add('hidden');
-  submitButton.disabled = true;
-
-  try {
-    const payload = {
-      name: document.getElementById('name').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      message: document.getElementById('message').value.trim()
-    };
-    const resp = await fetch('https://adventaiservices.com/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if (resp.ok) {
-      successMessage.classList.remove('hidden');
-      contactForm.reset();
-    } else {
-      const body = await resp.json().catch(() => ({}));
-      errorMessage.textContent = body.error || 'Submission failed';
-      errorMessage.classList.remove('hidden');
-    }
-  } catch (err) {
-    errorMessage.textContent = 'Network error';
-    errorMessage.classList.remove('hidden');
-  } finally {
-    submitText.classList.remove('hidden');
-    loadingSpinner.classList.add('hidden');
-    submitButton.disabled = false;
-  }
-});
-</script>
-```
+If you want to wire a different backend URL, update the `fetch` call inside `index.html`.
 
 ## Testing
 
@@ -156,7 +129,7 @@ python -m playwright install chromium
 python -m unittest discover -s frontend/tests -v
 ```
 
-Note: These E2E tests assume the frontend uses the backend (fetch) submission flow. If you are using the default Formspree integration, switch to the backend flow as described in "Connect the Frontend Form to the Backend" before running these tests.
+Note: These E2E tests assume the frontend uses the backend (fetch) submission flow. If you are using the default Formspree integration, switch to the backend flow as described above before running these tests.
 
 This suite mocks calls to `https://adventaiservices.com/api/contact` to cover:
 - Successful submission shows the success message
