@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanks — Advent AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+    <meta name="theme-color" content="#6C47FF">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        'primary-purple': '#6C47FF',
+                        'light-bg': '#f0f4f8',
+                        'light-card': '#ffffff',
+                        'dark-text': '#334155',
+                        'light-text': '#64748b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-light-bg text-dark-text font-sans">
+    <main class="min-h-screen flex items-center justify-center px-4">
+        <div class="bg-light-card rounded-xl shadow-lg p-10 max-w-lg text-center">
+            <img src="/logo.png" alt="Advent AI" class="mx-auto h-12 w-12 mb-4 rounded-md">
+            <h1 class="text-3xl font-bold mb-3">Thank you!</h1>
+            <p class="text-light-text mb-6">Your message has been sent. We'll get back to you shortly.</p>
+            <a href="/" class="inline-block bg-primary-purple text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-purple-700 transition-colors">Return to Home</a>
+        </div>
+    </main>
+</body>
+</html>
