@@ -1,22 +1,26 @@
 ## Advent AI Services — Website
 
-A single-page website for Advent AI training and consulting, now with a minimal Python backend for contact submissions persisted to SQLite.
+A single-page website for Advent AI training and consulting. The frontend uses Formspree for contact submissions by default; a minimal Python backend is included for self-hosted submissions persisted to SQLite.
 
 ### Features
 - **Responsive UI**: Tailwind CSS via CDN
 - **Smooth navigation** and **mobile menu toggle**
-- **Contact form**: Currently simulates submission on the frontend; a production-ready backend is available under `backend/`
+- **Contact form**: Formspree integration with `_subject` and redirect via `_next` to `thanks.html`
 - **Backend API**: Health check, submit contact, list contacts
 - **SQLite persistence** with auto-migration (table created on first run)
+- **Branding assets**: Favicon/app icons and header branding via `logo.png`
 
 ### Project Structure
 - `index.html`: Main single-page site (hero, services, contact, footer)
+- `thanks.html`: Thank-you page for successful contact submissions
+- `logo.png`: Favicon, app icons, and header logo
 - `CNAME`: Custom domain config for GitHub Pages
 - `backend/`
   - `app.py`: Standalone HTTP server (Python stdlib) with CORS enabled
   - `contacts.db`: SQLite database file (auto-created)
   - `requirements.txt`: Legacy (Flask not used by current server)
   - `tests/test_backend.py`: Integration tests that exercise the running server
+- `frontend/tests/test_frontend.py`: Optional E2E tests that assume backend (fetch) submission
 
 ### Tech Stack
 - Frontend: HTML5, Tailwind CSS (CDN), Inter (Google Fonts), Vanilla JavaScript
@@ -28,7 +32,7 @@ A single-page website for Advent AI training and consulting, now with a minimal 
 ### Backend
 1. Open a terminal and start the backend server:
    ```bash
-   cd Website/backend
+   cd backend
    python3 app.py
    ```
    - Binds on `0.0.0.0:5000`
@@ -36,10 +40,9 @@ A single-page website for Advent AI training and consulting, now with a minimal 
 
 ### Frontend
 - Option 1: Open directly
-  - Open `Website/index.html` in your browser.
+  - Open `index.html` in your browser.
 - Option 2: Serve over a local HTTP server (recommended)
   ```bash
-  cd Website
   python3 -m http.server 8000
   # open http://localhost:8000/
   ```
@@ -86,7 +89,7 @@ A single-page website for Advent AI training and consulting, now with a minimal 
 
 ## Connect the Frontend Form to the Backend
 
-The current `index.html` simulates submission using `setTimeout`. To use the backend, replace the simulation with a `fetch` call:
+By default, `index.html` posts to Formspree via a plain HTML form. To use the Python backend instead, remove the form `action` (and Formspree-specific hidden fields like `_next`/`_subject`) and add this `fetch` handler:
 
 ```html
 <script>
@@ -134,7 +137,7 @@ contactForm.addEventListener('submit', async function(e) {
 
 Integration tests are in `backend/tests/test_backend.py`. They will start the server automatically if it is not already running.
 
-From the project root (`Website/`):
+From the project root:
 
 ```bash
 python3 -m unittest discover -s backend/tests -v
@@ -152,6 +155,8 @@ pip install playwright
 python -m playwright install chromium
 python -m unittest discover -s frontend/tests -v
 ```
+
+Note: These E2E tests assume the frontend uses the backend (fetch) submission flow. If you are using the default Formspree integration, switch to the backend flow as described in "Connect the Frontend Form to the Backend" before running these tests.
 
 This suite mocks calls to `https://adventaiservices.com/api/contact` to cover:
 - Successful submission shows the success message
