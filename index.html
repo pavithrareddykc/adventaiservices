@@ -266,18 +266,32 @@
 
             let lastPayload = null;
 
+            function getApiBaseUrl() {
+                const protocol = window.location.protocol || '';
+                const host = window.location.hostname || '';
+                const isHttpLike = protocol.startsWith('http');
+                const isLocalHost = host === 'localhost' || host === '127.0.0.1';
+                if (isHttpLike && isLocalHost) {
+                    return 'http://localhost:5000';
+                }
+                return 'https://adventaiservices.com';
+            }
+
             // Submit helper that shows success/error messages based on response
             async function submitPayload(payload) {
                 hide(successMessage);
                 hide(errorMessage);
                 hide(retryButton);
                 setSubmitting(true);
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 20000);
                 try {
-                    // Update this URL if running a local backend (see README)
-                    const response = await fetch('https://adventaiservices.com/api/contact', {
+                    // Uses local backend when on localhost, otherwise production API
+                    const response = await fetch(`${getApiBaseUrl()}/api/contact`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload),
+                        signal: controller.signal,
                     });
 
                     const contentType = response.headers.get('Content-Type') || '';
@@ -303,6 +317,7 @@
                     errorMessage.focus();
                     show(retryButton);
                 } finally {
+                    clearTimeout(timeoutId);
                     setSubmitting(false);
                 }
             }
