@@ -1,3 +1,9 @@
+"""Integration tests for the minimal contact backend.
+
+These tests spin up the HTTP server (if not already running) and exercise
+health, validation, insertion, and listing flows over real HTTP.
+"""
+
 import json
 import os
 import signal
@@ -11,12 +17,18 @@ BASE_URL = "http://localhost:5000"
 
 
 def http_get(path: str):
+    """Perform a GET request to the running backend and return (status_code, body_str)."""
     req = request.Request(f"{BASE_URL}{path}", method="GET")
     with request.urlopen(req, timeout=5) as resp:
         return resp.getcode(), resp.read().decode("utf-8")
 
 
 def http_post(path: str, payload: dict):
+    """Perform a POST with a JSON body and return (status_code, body_str).
+
+    On non-2xx responses, this function returns the HTTP error code and error
+    body instead of raising.
+    """
     data = json.dumps(payload).encode("utf-8")
     req = request.Request(
         f"{BASE_URL}{path}",
@@ -33,6 +45,7 @@ def http_post(path: str, payload: dict):
 
 
 class BackendIntegrationTests(unittest.TestCase):
+    """End-to-end tests targeting the real HTTP interface of the backend server."""
     server_proc = None
 
     @classmethod

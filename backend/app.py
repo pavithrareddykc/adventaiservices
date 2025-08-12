@@ -1,3 +1,18 @@
+"""Advent AI contact backend.
+
+This module provides a small threaded HTTP server using only Python's standard
+library. It exposes three endpoints:
+
+- GET /health: Simple health check returning {"status": "ok"}
+- POST /api/contact: Accepts JSON {name, email, message}; validates and stores
+  a new contact message in a local SQLite database
+- GET /api/contacts: Lists stored contact messages in reverse chronological
+  order
+
+The SQLite database file is created on first run. CORS headers are set to allow
+simple integration from a static website.
+"""
+
 import json
 import sqlite3
 from http import HTTPStatus
@@ -9,6 +24,7 @@ PORT = 5000
 
 
 def initialize_database() -> None:
+    """Create the SQLite database and the `contacts` table if they don't exist."""
     connection = sqlite3.connect(DB_PATH)
     cursor = connection.cursor()
     cursor.execute(
@@ -27,14 +43,21 @@ def initialize_database() -> None:
 
 
 class ContactRequestHandler(BaseHTTPRequestHandler):
+    """HTTP handler that implements health and contact API endpoints.
+
+    The handler also sets permissive CORS headers to support browser clients
+    hosted on different origins.
+    """
     server_version = "ContactHTTP/1.0"
 
     def _set_cors_headers(self) -> None:
+        """Attach CORS headers to the current response."""
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Accept")
 
     def _send_json(self, payload: dict, status: int = HTTPStatus.OK) -> None:
+        """Serialize `payload` as JSON and write it to the response stream."""
         body = json.dumps(payload).encode("utf-8")
         self.send_response(status)
         self._set_cors_headers()
@@ -44,11 +67,13 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_OPTIONS(self):  # noqa: N802 (BaseHTTPRequestHandler naming)
+        """Respond to CORS preflight requests."""
         self.send_response(HTTPStatus.NO_CONTENT)
         self._set_cors_headers()
         self.end_headers()
 
     def do_GET(self):  # noqa: N802
+        """Handle GET requests for `/health` and `/api/contacts`."""
         if self.path == "/health":
             self._send_json({"status": "ok"})
             return
@@ -80,6 +105,7 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
         self._send_json({"error": "Not found"}, status=HTTPStatus.NOT_FOUND)
 
     def do_POST(self):  # noqa: N802
+        """Handle POST requests for `/api/contact` to insert a new contact."""
         if self.path == "/api/contact":
             try:
                 content_length = int(self.headers.get("Content-Length", "0"))
@@ -116,6 +142,7 @@ class ContactRequestHandler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
+    """Entry point: initialize the database and start the HTTP server."""
     initialize_database()
     server = ThreadingHTTPServer((HOST, PORT), ContactRequestHandler)
     try:
