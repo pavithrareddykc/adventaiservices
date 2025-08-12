@@ -271,7 +271,8 @@
                 const host = window.location.hostname || '';
                 const isHttpLike = protocol.startsWith('http');
                 const isLocalHost = host === 'localhost' || host === '127.0.0.1';
-                if (isHttpLike && isLocalHost) {
+                const isFile = protocol === 'file:';
+                if ((isHttpLike && isLocalHost) || isFile) {
                     return 'http://localhost:5000';
                 }
                 return 'https://adventaiservices.com';
