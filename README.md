@@ -27,6 +27,21 @@ A single-page website for Advent AI training and consulting. The frontend uses F
 - Backend: Python 3 standard library (`http.server`, `sqlite3`), CORS headers
 - Database: SQLite (file `backend/contacts.db`)
 
+## Code Overview & Documentation
+
+- **Backend (`backend/app.py`)**
+  - Module- and function-level docstrings describe endpoints, control flow, and database usage.
+  - Key constants: `DB_PATH` (SQLite file), `HOST` (bind address), `PORT` (default `5000`).
+  - `initialize_database()`: Creates the `contacts` table on first run.
+  - `ContactRequestHandler`: Implements `GET /health`, `GET /api/contacts`, and `POST /api/contact`.
+  - `main()`: Initializes the DB and starts a threaded HTTP server.
+- **Frontend (`index.html`)**
+  - Inline comments explain the page structure and the JavaScript that enhances the contact form with validation and accessible messaging.
+  - The `fetch` call targets `https://adventaiservices.com/api/contact` by default. See below to point it at a local backend.
+- **Tests**
+  - Backend tests (`backend/tests/test_backend.py`) include docstrings and run the server automatically if needed.
+  - Frontend Playwright tests (`frontend/tests/test_frontend.py`) mock the network and validate the UX behaviors.
+
 ## Run Locally
 
 ### Backend
@@ -47,18 +62,22 @@ A single-page website for Advent AI training and consulting. The frontend uses F
   # open http://localhost:8000/
   ```
 
-## Contact Form UX and Validation
+## Connect the Frontend Form to the Backend
 
-The contact form is progressively enhanced to submit via the backend API using `fetch` and provides accessible, user-friendly validation.
+By default, `index.html` posts to Formspree via a plain HTML form. With JavaScript enabled, the page intercepts submission and sends it to the backend (`/api/contact`), providing inline validation, accessible announcements, and a Retry button on failure.
 
-- **Client-side limits**:
-  - `name`: required, max 120 characters
-  - `email`: required, valid email format, max 254 characters
-  - `message`: required, max 5000 characters
-- **Inline errors**: Each field shows a specific error under the input and toggles `aria-invalid` appropriately.
-- **ARIA live regions**: Global success (`role="status"`) and error (`role="alert"`) messages are announced to assistive tech and receive focus when shown.
-- **Retry button**: On network failure, a Retry button appears to resubmit the last payload.
-- **Progressive enhancement**: If JavaScript is disabled, the form posts to Formspree as a basic HTML form.
+If you want to wire a different backend URL, update the `fetch` call inside `index.html`. For local development against the included Python server, change the URL to:
+
+```javascript
+// index.html (inside submitPayload)
+const response = await fetch('http://localhost:5000/api/contact', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload),
+});
+```
+
+Remember to revert this to your production endpoint when deploying.
 
 ## API Reference (Backend)
 
@@ -99,12 +118,6 @@ The contact form is progressively enhanced to submit via the backend API using `
     ]
   }
   ```
-
-## Connect the Frontend Form to the Backend
-
-By default, `index.html` posts to Formspree via a plain HTML form. With JavaScript enabled, the page intercepts submission and sends it to the backend (`/api/contact`), providing inline validation, accessible announcements, and a Retry button on failure.
-
-If you want to wire a different backend URL, update the `fetch` call inside `index.html`.
 
 ## Testing
 

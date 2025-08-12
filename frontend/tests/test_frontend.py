@@ -1,3 +1,10 @@
+"""Playwright-based E2E tests for the frontend contact form UX.
+
+These tests run against the static `index.html` over the `file://` protocol and
+mock network calls to exercise success, validation error, and network failure
+scenarios without requiring a live backend.
+"""
+
 import os
 import time
 import unittest
@@ -7,6 +14,8 @@ from playwright.sync_api import sync_playwright, expect
 
 
 class FrontendE2ETests(unittest.TestCase):
+    """End-to-end UI tests that verify form validation and messaging behavior."""
+
     @classmethod
     def setUpClass(cls):
         cls.playwright = sync_playwright().start()
@@ -46,11 +55,13 @@ class FrontendE2ETests(unittest.TestCase):
             pass
 
     def _goto_page(self):
+        """Open the local index page and ensure `.hidden` works without Tailwind."""
         self.page.goto(self.index_url)
         # Ensure the 'hidden' class behaves even without Tailwind CSS by injecting minimal CSS
         self.page.add_style_tag(content=".hidden{display:none !important}")
 
     def _fill_form_and_submit(self, name: str, email: str, message: str):
+        """Helper to populate the contact form and click submit."""
         self.page.fill('#name', name)
         self.page.fill('#email', email)
         self.page.fill('#message', message)
