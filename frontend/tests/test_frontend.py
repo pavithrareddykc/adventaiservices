@@ -101,7 +101,7 @@ class FrontendE2ETests(unittest.TestCase):
                 body=self.thanks_html,
             )
 
-        self.page.route("https://formspree.io/f/mdkdbgzp", formspree_post)
+        self.page.route("https://formspree.io/f/xyzpovdg", formspree_post)
         self.page.route(self.thanks_url_prod, thanks_get)
 
         self._goto_page()
@@ -131,7 +131,7 @@ class FrontendE2ETests(unittest.TestCase):
             else:
                 route.fallback()
 
-        self.page.route("https://formspree.io/f/mdkdbgzp", formspree_probe)
+        self.page.route("https://formspree.io/f/xyzpovdg", formspree_probe)
 
         self._goto_page()
         # Leave required fields blank to trigger native validation

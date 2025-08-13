@@ -23,7 +23,7 @@ A single-page website for Advent AI training and consulting. The contact form su
 The site uses Formspree. The form element posts directly to your Formspree endpoint:
 
 ```html
-<form action="https://formspree.io/f/mdkdbgzp" method="POST" accept-charset="UTF-8">
+<form action="https://formspree.io/f/xyzpovdg" method="POST" accept-charset="UTF-8">
   <!-- fields -->
   <input type="hidden" name="_subject" value="New form submission from Advent AI" />
   <input type="hidden" name="_next" value="https://www.adventaiservices.com/thanks.html" />
