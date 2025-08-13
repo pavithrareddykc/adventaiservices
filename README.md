@@ -10,10 +10,9 @@ A single-page website for Advent AI training and consulting. The contact form su
 
 ### Project Structure
 - `index.html`: Main single-page site (hero, services, contact, footer)
-- `thanks.html`: Thank-you page for successful contact submissions
 - `logo.png`: Favicon, app icons, and header logo
 - `CNAME`: Custom domain config for GitHub Pages
-- `frontend/tests/test_frontend.py`: Optional E2E tests (may require updates if they assume a backend API)
+- `frontend/tests/test_frontend.py`: Optional E2E tests 
 
 ### Tech Stack
 - Frontend: HTML5, Tailwind CSS (CDN), Inter (Google Fonts), Vanilla JavaScript
