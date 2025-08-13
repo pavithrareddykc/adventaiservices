@@ -1,20 +1,22 @@
-"""Playwright-based E2E tests for the frontend contact form UX.
+"""Playwright-based E2E tests for the frontend contact form UX (Formspree flow).
 
 These tests run against the static `index.html` over the `file://` protocol and
-mock network calls to exercise success, validation error, and network failure
-scenarios without requiring a live backend.
+mock Formspree requests to verify:
+- Successful submission redirects to the thank-you page
+- Native HTML5 validation prevents submission (no network call)
 """
 
 import os
 import time
 import unittest
 from pathlib import Path
+from urllib.parse import parse_qs
 
 from playwright.sync_api import sync_playwright, expect
 
 
 class FrontendE2ETests(unittest.TestCase):
-    """End-to-end UI tests that verify form validation and messaging behavior."""
+    """End-to-end UI tests that verify form behavior with Formspree submissions."""
 
     @classmethod
     def setUpClass(cls):
@@ -23,12 +25,15 @@ class FrontendE2ETests(unittest.TestCase):
         cls.context = cls.browser.new_context()
         cls.page = cls.context.new_page()
 
-        # Resolve file:// URL to root index.html
+        # Resolve file:// URL to root index.html and thanks.html
         repo_root = Path(__file__).resolve().parents[2]
         index_path = repo_root / "index.html"
+        thanks_path = repo_root / "thanks.html"
         cls.index_url = f"file://{index_path}"
+        cls.thanks_html = thanks_path.read_text(encoding="utf-8")
+        cls.thanks_url_prod = "https://www.adventaiservices.com/thanks.html"
 
-        # Intercept Tailwind CDN to avoid network dependency but keep 'tailwind' defined
+        # Intercept Tailwind CDN to avoid network dependency but keep `tailwind` defined
         def tailwind_route(route):
             route.fulfill(
                 status=200,
@@ -67,71 +72,76 @@ class FrontendE2ETests(unittest.TestCase):
         self.page.fill('#message', message)
         self.page.click('#submit-button')
 
-    def test_successful_submission_shows_success_message(self):
-        # Mock API success
-        def fulfill_success(route, request):
+    def test_successful_submission_redirects_to_thanks(self):
+        """Mock Formspree POST to redirect to the thank-you page and assert navigation."""
+        captured = {"called": False, "body": "", "content_type": ""}
+
+        # Mock POST to Formspree: 302 redirect to production thanks URL
+        def formspree_post(route, request):
             if request.method == 'POST':
+                captured["called"] = True
+                captured["content_type"] = request.header_value("content-type") or ""
+                captured["body"] = request.post_data or ""
                 route.fulfill(
-                    status=201,
+                    status=302,
                     headers={
-                        "Access-Control-Allow-Origin": "*",
-                        "Content-Type": "application/json",
+                        "Location": self.thanks_url_prod,
+                        "Content-Type": "text/html; charset=utf-8",
                     },
-                    body='{"message":"Contact submitted successfully"}',
+                    body="",
                 )
             else:
                 route.fallback()
 
-        self.page.route("https://adventaiservices.com/api/contact", fulfill_success)
+        # Mock GET of production thanks URL to serve local thanks.html content
+        def thanks_get(route, request):
+            route.fulfill(
+                status=200,
+                headers={"Content-Type": "text/html; charset=utf-8"},
+                body=self.thanks_html,
+            )
+
+        self.page.route("https://formspree.io/f/mdkdbgzp", formspree_post)
+        self.page.route(self.thanks_url_prod, thanks_get)
 
         self._goto_page()
-        self._fill_form_and_submit("Alice", "alice@example.com", f"Hello {int(time.time()*1000)}")
+        unique_msg = f"Hello {int(time.time()*1000)}"
+        self._fill_form_and_submit("Alice", "alice@example.com", unique_msg)
 
-        success = self.page.locator('#success-message')
-        error = self.page.locator('#error-message')
+        # Wait for redirect to the mocked thanks URL
+        self.page.wait_for_url(self.thanks_url_prod)
 
-        expect(success).to_be_visible()
-        expect(error).to_be_hidden()
+        # Assert we see our local thanks content
+        expect(self.page.locator('h1')).to_have_text("Thank you!")
 
-    def test_validation_error_shows_server_error_text(self):
-        # Mock API validation error
-        def fulfill_validation_error(route, request):
+        # Assert the form actually submitted and included expected fields
+        self.assertTrue(captured["called"], "Formspree POST was not called")
+        parsed = parse_qs(captured["body"]) if captured["body"] else {}
+        for key in ("name", "email", "message", "_next"):
+            self.assertIn(key, parsed, f"Missing field in payload: {key}")
+
+    def test_html5_validation_blocks_submission(self):
+        """Ensure native validation prevents network call when required fields are missing/invalid."""
+        called = {"value": False}
+
+        def formspree_probe(route, request):
             if request.method == 'POST':
-                route.fulfill(
-                    status=400,
-                    headers={
-                        "Access-Control-Allow-Origin": "*",
-                        "Content-Type": "application/json",
-                    },
-                    body='{"error":"All fields are required"}',
-                )
-            else:
-                route.fallback()
-
-        self.page.route("https://adventaiservices.com/api/contact", fulfill_validation_error)
-
-        self._goto_page()
-        # Use valid values so native HTML5 validation does not block form submission
-        self._fill_form_and_submit("Alice QA", "alice.qa@example.com", "trigger server validation message")
-
-        error = self.page.locator('#error-message')
-        expect(error).to_be_visible()
-        expect(error).to_contain_text("All fields are required")
-
-    def test_network_failure_shows_fetch_error_message(self):
-        # Simulate network failure
-        def abort_network(route, request):
-            if request.method == 'POST':
+                called["value"] = True
                 route.abort(error_code='failed')
             else:
                 route.fallback()
 
-        self.page.route("https://adventaiservices.com/api/contact", abort_network)
+        self.page.route("https://formspree.io/f/mdkdbgzp", formspree_probe)
 
         self._goto_page()
-        self._fill_form_and_submit("Bob", "bob@example.com", "Network down")
+        # Leave required fields blank to trigger native validation
+        self._fill_form_and_submit("", "not-an-email", "")
 
-        error = self.page.locator('#error-message')
-        expect(error).to_be_visible()
-        # Browser message may vary; assert it includes "Failed" which covers typical "Failed to fetch"
-        expect(error).to_contain_text("Failed")
+        # Give the browser a moment in case it would attempt a submission (it shouldn't)
+        self.page.wait_for_timeout(300)
+
+        # No POST should have been made due to HTML5 validation
+        self.assertFalse(called["value"], "Form submission should be blocked by native validation")
+        # Still on the index file URL
+        self.assertTrue(self.page.url.startswith("file://"))
+        self.assertIn("index.html", self.page.url)
