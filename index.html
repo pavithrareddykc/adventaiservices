@@ -118,7 +118,7 @@
             <div class="container mx-auto px-4 max-w-2xl">
                 <h2 class="text-4xl font-bold text-center mb-12 text-dark-text">Let's Talk</h2>
                 <div class="bg-light-card rounded-xl shadow-lg p-8">
-                    <form id="contact-form" class="space-y-6" action="https://formspree.io/f/mdkdbgzp" method="POST" accept-charset="UTF-8">
+                    <form id="contact-form" class="space-y-6" action="https://formspree.io/f/xnnzwrbl" method="POST" accept-charset="UTF-8">
                         <div>
                             <label for="name" class="block text-dark-text font-medium mb-1">Name</label>
                             <input type="text" id="name" name="name" required maxlength="120" aria-describedby="name-error" class="w-full px-4 py-2 border border-gray-300 bg-white rounded-lg focus:ring-2 focus:ring-primary-purple focus:border-transparent transition-all text-dark-text placeholder:text-gray-400">
@@ -135,7 +135,7 @@
                             <p id="message-error" class="mt-1 text-sm text-red-600 hidden"></p>
                         </div>
                         <input type="hidden" name="_subject" value="New form submission from Advent AI" />
-                        <input type="hidden" name="_next" value="https://adventaiservices.com/thanks.html" />
+                        <input type="hidden" name="_next" value="https://www.adventaiservices.com/thanks.html" />
                         <button type="submit" id="submit-button" class="w-full bg-primary-purple text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-purple-700 transition-colors duration-300 transform hover:scale-105 flex items-center justify-center">
                             <span id="submit-text">Send Message</span>
                             <div id="loading-spinner" class="hidden animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
@@ -143,7 +143,7 @@
                     </form>
                     <div id="success-message" role="status" aria-live="polite" tabindex="-1" class="hidden mt-6 text-center text-green-600 font-medium">Thank you for your message! We'll get back to you shortly.</div>
                     <div id="error-message" role="alert" aria-live="assertive" tabindex="-1" class="hidden mt-6 text-center text-red-600 font-medium">Oops! Something went wrong. Please try again.</div>
-                    <button id="retry-button" class="hidden mt-4 w-full border border-primary-purple text-primary-purple font-semibold py-2 px-4 rounded-lg hover:bg-purple-50 transition-colors">Retry</button>
+                    <!-- Retry button removed: no JS interception -->
                 </div>
             </div>
         </section>
@@ -174,182 +174,7 @@
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
 
-        // Intercept form submission to call our backend API and show UI messages
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('contact-form');
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const messageInput = document.getElementById('message');
-            const submitButton = document.getElementById('submit-button');
-            const submitText = document.getElementById('submit-text');
-            const loadingSpinner = document.getElementById('loading-spinner');
-            const successMessage = document.getElementById('success-message');
-            const errorMessage = document.getElementById('error-message');
-            const retryButton = document.getElementById('retry-button');
 
-            const nameError = document.getElementById('name-error');
-            const emailError = document.getElementById('email-error');
-            const messageError = document.getElementById('message-error');
-
-            function show(element) { element.classList.remove('hidden'); }
-            function hide(element) { element.classList.add('hidden'); }
-
-            // Toggle submit UI state
-            function setSubmitting(isSubmitting) {
-                submitButton.disabled = isSubmitting;
-                if (isSubmitting) {
-                    hide(submitText);
-                    show(loadingSpinner);
-                } else {
-                    show(submitText);
-                    hide(loadingSpinner);
-                }
-            }
-
-            // Field-level error helpers
-            function setFieldError(inputEl, errorEl, message) {
-                if (message) {
-                    inputEl.setAttribute('aria-invalid', 'true');
-                    errorEl.textContent = message;
-                    show(errorEl);
-                } else {
-                    inputEl.removeAttribute('aria-invalid');
-                    errorEl.textContent = '';
-                    hide(errorEl);
-                }
-            }
-
-            function clearFieldErrors() {
-                setFieldError(nameInput, nameError, '');
-                setFieldError(emailInput, emailError, '');
-                setFieldError(messageInput, messageError, '');
-            }
-
-            // Basic client-side validation mirrored by the backend
-            function validateFields() {
-                clearFieldErrors();
-                let firstInvalid = null;
-                const name = nameInput.value.trim();
-                const email = emailInput.value.trim();
-                const message = messageInput.value.trim();
-                const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-
-                if (!name) {
-                    setFieldError(nameInput, nameError, 'Name is required');
-                    firstInvalid = firstInvalid || nameInput;
-                } else if (name.length > 120) {
-                    setFieldError(nameInput, nameError, 'Name must be 120 characters or fewer');
-                    firstInvalid = firstInvalid || nameInput;
-                }
-
-                if (!email) {
-                    setFieldError(emailInput, emailError, 'Email is required');
-                    firstInvalid = firstInvalid || emailInput;
-                } else if (email.length > 254) {
-                    setFieldError(emailInput, emailError, 'Email must be 254 characters or fewer');
-                    firstInvalid = firstInvalid || emailInput;
-                } else if (!emailPattern.test(email)) {
-                    setFieldError(emailInput, emailError, 'Enter a valid email address');
-                    firstInvalid = firstInvalid || emailInput;
-                }
-
-                if (!message) {
-                    setFieldError(messageInput, messageError, 'Message is required');
-                    firstInvalid = firstInvalid || messageInput;
-                } else if (message.length > 5000) {
-                    setFieldError(messageInput, messageError, 'Message must be 5000 characters or fewer');
-                    firstInvalid = firstInvalid || messageInput;
-                }
-
-                return { isValid: !firstInvalid, firstInvalid, values: { name, email, message } };
-            }
-
-            let lastPayload = null;
-
-            function getApiBaseUrl() {
-                const protocol = window.location.protocol || '';
-                const host = window.location.hostname || '';
-                const isHttpLike = protocol.startsWith('http');
-                const isLocalHost = host === 'localhost' || host === '127.0.0.1';
-                const isFile = protocol === 'file:';
-                if ((isHttpLike && isLocalHost) || isFile) {
-                    return 'http://localhost:5000';
-                }
-                return 'https://adventaiservices.com';
-            }
-
-            // Submit helper that shows success/error messages based on response
-            async function submitPayload(payload) {
-                hide(successMessage);
-                hide(errorMessage);
-                hide(retryButton);
-                setSubmitting(true);
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 20000);
-                try {
-                    // Uses local backend when on localhost, otherwise production API
-                    const response = await fetch(`${getApiBaseUrl()}/api/contact`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload),
-                        signal: controller.signal,
-                    });
-
-                    const contentType = response.headers.get('Content-Type') || '';
-                    const isJson = contentType.includes('application/json');
-                    const data = isJson ? await response.json() : {};
-
-                    if (response.ok) {
-                        show(successMessage);
-                        hide(errorMessage);
-                        successMessage.focus();
-                        form.reset();
-                        clearFieldErrors();
-                    } else {
-                        errorMessage.textContent = (data && data.error) ? data.error : 'An error occurred';
-                        show(errorMessage);
-                        errorMessage.focus();
-                        show(retryButton);
-                    }
-                } catch (err) {
-                    // Ensure the message includes "Failed" to satisfy the test assertion for network failure
-                    errorMessage.textContent = (err && err.message) ? err.message : 'Failed to submit';
-                    show(errorMessage);
-                    errorMessage.focus();
-                    show(retryButton);
-                } finally {
-                    clearTimeout(timeoutId);
-                    setSubmitting(false);
-                }
-            }
-
-            // Intercept submit, validate, and then call submit helper
-            form.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const { isValid, firstInvalid, values } = validateFields();
-                if (!isValid) {
-                    // Summarize the first error to the global error container for screen readers
-                    errorMessage.textContent = (firstInvalid === nameInput && nameError.textContent) ||
-                                                (firstInvalid === emailInput && emailError.textContent) ||
-                                                (firstInvalid === messageInput && messageError.textContent) ||
-                                                'Please correct the highlighted fields.';
-                    show(errorMessage);
-                    errorMessage.focus();
-                    firstInvalid.focus();
-                    return;
-                }
-
-                lastPayload = values;
-                await submitPayload(values);
-            });
-
-            // Retry last payload on demand (e.g., after transient network failure)
-            retryButton.addEventListener('click', async () => {
-                if (lastPayload) {
-                    await submitPayload(lastPayload);
-                }
-            });
-        });
     </script>
 </body>
 </html>
