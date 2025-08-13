@@ -1,6 +1,6 @@
 ## Advent AI Services — Website
 
-A single-page website for Advent AI training and consulting. The contact form submits to Formspree for handling and email notifications.
+A single-page website for Advent AI training and consulting. The contact form submits to Formspree for handling form submissions and email notifications.
 
 ### Features
 - **Responsive UI**: Tailwind CSS via CDN
