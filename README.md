@@ -18,20 +18,6 @@ A single-page website for Advent AI training and consulting. The contact form su
 ### Tech Stack
 - Frontend: HTML5, Tailwind CSS (CDN), Inter (Google Fonts), Vanilla JavaScript
 
-## Contact Form
-
-The site uses Formspree. The form element posts directly to your Formspree endpoint:
-
-```html
-<form action="https://formspree.io/f/xnnzwrbl" method="POST" accept-charset="UTF-8">
-  <!-- fields -->
-  <input type="hidden" name="_subject" value="New form submission from Advent AI" />
-  <input type="hidden" name="_next" value="https://www.adventaiservices.com/thanks.html" />
-</form>
-```
-
-On success, Formspree redirects to `https://www.adventaiservices.com/thanks.html`.
-
 ## Run Locally
 
 - Open `index.html` directly in your browser, or
