@@ -29,4 +29,4 @@ python3 -m http.server 8000
 
 ## Testing
 
-Playwright E2E tests are in `frontend/tests/test_frontend.py`. These originally mocked a backend API; if you keep them, update them to reflect Formspree-only behavior or disable the API-specific tests.
+Playwright E2E tests are in `frontend/tests/test_frontend.py`. 
