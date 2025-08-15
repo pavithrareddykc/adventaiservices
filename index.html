@@ -51,6 +51,7 @@
         .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
         .animate-fade-in-2s { animation: fadeIn 1s ease-out 0.5s forwards; opacity: 0; }
         .animate-fade-in-3s { animation: fadeIn 1s ease-out 1s forwards; opacity: 0; }
+        .hidden{ display: none !important; }
     </style>
 </head>
 <body class="bg-light-bg text-dark-text font-sans">
@@ -134,7 +135,7 @@
                             <p id="message-error" class="mt-1 text-sm text-red-600 hidden"></p>
                         </div>
                         <input type="hidden" name="_subject" value="New form submission from Advent AI" />
-                        <input type="hidden" name="_next" value="https://www.adventaiservices.com/thanks.html" />
+                        <input type="hidden" name="_next" value="https://www.adventaiservices.com/?submitted=1#contact" />
                         <button type="submit" id="submit-button" class="w-full bg-primary-purple text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-purple-700 transition-colors duration-300 transform hover:scale-105 flex items-center justify-center">
                             <span id="submit-text">Send Message</span>
                             <div id="loading-spinner" class="hidden animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
@@ -173,6 +174,17 @@
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
 
+        // Show success message when redirected back after submission
+        try {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('submitted') === '1') {
+                const successMessage = document.getElementById('success-message');
+                if (successMessage) {
+                    successMessage.classList.remove('hidden');
+                    successMessage.focus();
+                }
+            }
+        } catch (e) {}
 
     </script>
 </body>

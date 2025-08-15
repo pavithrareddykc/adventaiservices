@@ -5,7 +5,7 @@ A single-page website for Advent AI training and consulting. The contact form su
 ### Features
 - **Responsive UI**: Tailwind CSS via CDN
 - **Smooth navigation** and **mobile menu toggle**
-- **Contact form**: Plain HTML form that posts to Formspree. Works with or without JavaScript, and redirects to a thank-you page on success.
+- **Contact form**: Plain HTML form that posts to Formspree. Works with or without JavaScript, and redirects back showing an inline success message on success.
 - **Branding assets**: Favicon/app icons and header branding via `logo.png`
 
 ### Project Structure

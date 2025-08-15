@@ -2,7 +2,7 @@
 
 These tests run against the static `index.html` over the `file://` protocol and
 mock Formspree requests to verify:
-- Successful submission redirects to the thank-you page
+- Successful submission redirects back and shows inline success message
 - Native HTML5 validation prevents submission (no network call)
 """
 
@@ -25,13 +25,12 @@ class FrontendE2ETests(unittest.TestCase):
         cls.context = cls.browser.new_context()
         cls.page = cls.context.new_page()
 
-        # Resolve file:// URL to root index.html and thanks.html
+        # Resolve file:// URL to root index.html
         repo_root = Path(__file__).resolve().parents[2]
         index_path = repo_root / "index.html"
-        thanks_path = repo_root / "thanks.html"
         cls.index_url = f"file://{index_path}"
-        cls.thanks_html = thanks_path.read_text(encoding="utf-8")
-        cls.thanks_url_prod = "https://www.adventaiservices.com/thanks.html"
+        cls.redirect_url = "https://www.adventaiservices.com/?submitted=1#contact"
+        cls.index_html = index_path.read_text(encoding="utf-8")
 
         # Intercept Tailwind CDN to avoid network dependency but keep `tailwind` defined
         def tailwind_route(route):
@@ -72,8 +71,8 @@ class FrontendE2ETests(unittest.TestCase):
         self.page.fill('#message', message)
         self.page.click('#submit-button')
 
-    def test_successful_submission_redirects_to_thanks(self):
-        """Mock Formspree POST to redirect to the thank-you page and assert navigation."""
+    def test_successful_submission_shows_success_message(self):
+        """Mock Formspree POST to redirect back to index with success flag and assert inline success."""
         captured = {"called": False, "body": "", "content_type": ""}
 
         # Mock POST to Formspree: 302 redirect to production thanks URL
@@ -85,7 +84,7 @@ class FrontendE2ETests(unittest.TestCase):
                 route.fulfill(
                     status=302,
                     headers={
-                        "Location": self.thanks_url_prod,
+                        "Location": self.redirect_url,
                         "Content-Type": "text/html; charset=utf-8",
                     },
                     body="",
@@ -93,26 +92,28 @@ class FrontendE2ETests(unittest.TestCase):
             else:
                 route.fallback()
 
-        # Mock GET of production thanks URL to serve local thanks.html content
-        def thanks_get(route, request):
+        # Mock GET of redirect URL to serve local index.html content (showing success message)
+        def redirect_get(route, request):
             route.fulfill(
                 status=200,
                 headers={"Content-Type": "text/html; charset=utf-8"},
-                body=self.thanks_html,
+                body=self.index_html,
             )
 
         self.page.route("https://formspree.io/f/xnnzwrbl", formspree_post)
-        self.page.route(self.thanks_url_prod, thanks_get)
+        self.page.route(self.redirect_url, redirect_get)
 
         self._goto_page()
         unique_msg = f"Hello {int(time.time()*1000)}"
         self._fill_form_and_submit("Alice", "alice@example.com", unique_msg)
 
-        # Wait for redirect to the mocked thanks URL
-        self.page.wait_for_url(self.thanks_url_prod)
+        # Wait for redirect to the mocked success URL
+        self.page.wait_for_url(self.redirect_url)
 
-        # Assert we see our local thanks content
-        expect(self.page.locator('h1')).to_have_text("Thank you!")
+        # Assert inline success message is visible
+        success_el = self.page.locator('#success-message')
+        expect(success_el).to_be_visible()
+        expect(success_el).to_contain_text("Thank you")
 
         # Assert the form actually submitted and included expected fields
         self.assertTrue(captured["called"], "Formspree POST was not called")
