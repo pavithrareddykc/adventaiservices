@@ -26,6 +26,10 @@
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React (CDN) and Babel for on-the-fly JSX transpilation -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script>
         // Tailwind configuration: fonts and custom colors used throughout the site
         tailwind.config = {
@@ -113,6 +117,14 @@
             </div>
         </section>
 
+        <!-- React Components section: mount point for ReactBits components -->
+        <section id="react-components" class="py-20 bg-light-bg">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <h2 class="text-4xl font-bold text-center mb-12 text-dark-text">Interactive Components</h2>
+                <div id="react-root"></div>
+            </div>
+        </section>
+
         <!-- Contact section: accessible form with progressive enhancement -->
         <section id="contact" class="py-20 bg-light-bg">
             <div class="container mx-auto px-4 max-w-2xl">
@@ -186,6 +198,56 @@
             }
         } catch (e) {}
 
+    </script>
+    <!-- Example React component (Accordion) - Replace with components from reactbits.dev -->
+    <script type="text/babel" data-presets="react">
+        const faqs = [
+            { q: 'What services do you offer?', a: 'AI strategy consulting, custom model development, and AI training workshops.' },
+            { q: 'How soon can we start?', a: 'We typically kick off within 1-2 weeks after scope alignment.' },
+            { q: 'Do you provide ongoing support?', a: 'Yes. We offer retainers and post-deployment support tailored to your needs.' },
+        ];
+
+        function AccordionItem({ item, isOpen, onToggle }) {
+            return (
+                <div className="border border-gray-200 rounded-lg mb-3 overflow-hidden bg-light-card">
+                    <button
+                        className="w-full flex justify-between items-center px-4 py-3 text-left hover:bg-gray-50"
+                        onClick={onToggle}
+                        aria-expanded={isOpen}
+                    >
+                        <span className="font-medium text-dark-text">{item.q}</span>
+                        <svg className={`w-5 h-5 text-primary-purple transition-transform ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clipRule="evenodd" />
+                        </svg>
+                    </button>
+                    <div className={`${isOpen ? 'block' : 'hidden'} px-4 pb-4 text-light-text`}>{item.a}</div>
+                </div>
+            );
+        }
+
+        function FaqAccordion() {
+            const [openIndex, setOpenIndex] = React.useState(null);
+            return (
+                <div className="mx-auto">
+                    <p className="text-center text-light-text mb-6">Built with React + Tailwind. You can paste ReactBits components here.</p>
+                    {faqs.map((item, index) => (
+                        <AccordionItem
+                            key={index}
+                            item={item}
+                            isOpen={openIndex === index}
+                            onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+                        />
+                    ))}
+                </div>
+            );
+        }
+
+        (function mountReactExample() {
+            const rootEl = document.getElementById('react-root');
+            if (!rootEl || !(window.React && window.ReactDOM)) return;
+            const root = ReactDOM.createRoot(rootEl);
+            root.render(<FaqAccordion />);
+        })();
     </script>
 </body>
 </html>

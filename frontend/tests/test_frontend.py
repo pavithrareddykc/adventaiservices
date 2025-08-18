@@ -48,6 +48,8 @@ class FrontendE2ETests(unittest.TestCase):
         # Block fonts to speed up tests and avoid external network
         cls.page.route("https://fonts.googleapis.com/**", lambda route: route.abort())
         cls.page.route("https://fonts.gstatic.com/**", lambda route: route.abort())
+        # Block unpkg (React/Babel CDN) to keep tests offline; page should still function without React
+        cls.page.route("https://unpkg.com/**", lambda route: route.abort())
 
     @classmethod
     def tearDownClass(cls):
