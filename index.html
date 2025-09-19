@@ -56,7 +56,33 @@
 </head>
 <body class="bg-light-bg text-dark-text font-sans">
 
-    
+    <header class="bg-light-card text-dark-text shadow-md sticky top-0 z-50" role="banner">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="#hero" class="flex items-center space-x-3">
+                    <img src="/logo2.png" alt="Advent AI logo" class="h-8 w-8" onerror="this.onerror=null;this.src='/logo1.png';">
+                    <span class="text-lg font-semibold">Advent AI</span>
+                </a>
+                <nav class="hidden md:flex items-center space-x-8" aria-label="Primary">
+                    <a href="#hero" class="hover:text-primary-purple transition-colors">Home</a>
+                    <a href="#services" class="hover:text-primary-purple transition-colors">What We Do</a>
+                    <a href="#contact" class="hover:text-primary-purple transition-colors">Contact</a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-dark-text hover:text-primary-purple focus:outline-none focus:ring-2 focus:ring-primary-purple" aria-label="Toggle navigation" aria-expanded="false">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden pb-4" aria-label="Mobile Primary Navigation">
+                <div class="flex flex-col space-y-2">
+                    <a href="#hero" class="py-2 px-2 rounded hover:bg-light-bg">Home</a>
+                    <a href="#services" class="py-2 px-2 rounded hover:bg-light-bg">What We Do</a>
+                    <a href="#contact" class="py-2 px-2 rounded hover:bg-light-bg">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <main>
         <!-- Hero section: headline and primary call-to-action -->
@@ -71,6 +97,8 @@
                 <a href="#contact" class="bg-primary-purple text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 animate-fade-in-3s">Get Started Today</a>
             </div>
         </section>
+
+        
 
         <!-- Services section: three cards describing offerings -->
         <section id="services" class="py-20 bg-light-bg">
@@ -168,6 +196,30 @@
             }
         } catch (e) {}
 
+    </script>
+    <script type="module">
+        // Initialize Stagewise toolbar in development (localhost only)
+        (async () => {
+            try {
+                const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+                if (!isLocal) return;
+                const { initToolbar } = await import('https://cdn.jsdelivr.net/npm/@stagewise/toolbar/+esm');
+                initToolbar({
+                    plugins: [
+                        {
+                            name: 'notes',
+                            description: 'Attach quick notes for AI context',
+                            shortInfoForPrompt: () => 'User added a note for the selected element.',
+                            mcp: null,
+                            actions: []
+                        }
+                    ]
+                });
+                console.log('[Stagewise] Toolbar initialized');
+            } catch (err) {
+                console.warn('[Stagewise] Failed to load toolbar', err);
+            }
+        })();
     </script>
 </body>
 </html>
