@@ -60,13 +60,14 @@
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <a href="#hero" class="flex items-center space-x-3">
-                    <img src="/logo1.png" alt="Advent AI logo" class="h-8 w-8" onerror="this.onerror=null;this.src='/logo1.png';">
+                    <img src="/logo1.png" alt="Advent AI logo" class="h-8 w-8 drop-shadow-md" onerror="this.onerror=null;this.src='/logo1.png';">
                     <span class="text-lg font-semibold">Advent AI</span>
                 </a>
                 <nav class="hidden md:flex items-center space-x-8" aria-label="Primary">
                     <a href="#hero" class="hover:text-primary-purple transition-colors">Home</a>
-                    <a href="#services" class="hover:text-primary-purple transition-colors">What We Do</a>
-                    <a href="#contact" class="hover:text-primary-purple transition-colors">Contact</a>
+                    <a href="/about.html" class="hover:text-primary-purple transition-colors">About us</a>
+                    <a href="/what-we-do.html" class="hover:text-primary-purple transition-colors">What we do</a>
+                    <a href="#contact" class="hover:text-primary-purple transition-colors">Let's talk</a>
                 </nav>
                 <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-dark-text hover:text-primary-purple focus:outline-none focus:ring-2 focus:ring-primary-purple" aria-label="Toggle navigation" aria-expanded="false">
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -77,8 +78,9 @@
             <div id="mobile-menu" class="md:hidden hidden pb-4" aria-label="Mobile Primary Navigation">
                 <div class="flex flex-col space-y-2">
                     <a href="#hero" class="py-2 px-2 rounded hover:bg-light-bg">Home</a>
-                    <a href="#services" class="py-2 px-2 rounded hover:bg-light-bg">What We Do</a>
-                    <a href="#contact" class="py-2 px-2 rounded hover:bg-light-bg">Contact</a>
+                    <a href="/about.html" class="py-2 px-2 rounded hover:bg-light-bg">About us</a>
+                    <a href="/what-we-do.html" class="py-2 px-2 rounded hover:bg-light-bg">What we do</a>
+                    <a href="#contact" class="py-2 px-2 rounded hover:bg-light-bg">Let's talk</a>
                 </div>
             </div>
         </div>
@@ -108,14 +110,23 @@
                     <div class="bg-light-card rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
                         <h3 class="text-xl font-semibold mb-2 text-primary-purple text-center">AI Strategy Consulting</h3>
                         <p class="text-light-text text-center">We help you define a clear AI strategy, identifying opportunities to leverage AI for business growth and efficiency.</p>
+                        <div class="mt-4 text-center">
+                            <a href="/what-we-do.html" class="inline-block bg-primary-purple text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-purple-700 transition-colors">Learn more</a>
+                        </div>
                     </div>
                     <div class="bg-light-card rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
                         <h3 class="text-xl font-semibold mb-2 text-primary-purple text-center">Custom AI Model Development</h3>
                         <p class="text-light-text text-center">Our team develops and deploys custom AI models tailored to solve your unique business challenges.</p>
+                        <div class="mt-4 text-center">
+                            <a href="/what-we-do.html" class="inline-block bg-primary-purple text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-purple-700 transition-colors">Learn more</a>
+                        </div>
                     </div>
                     <div class="bg-light-card rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
                         <h3 class="text-xl font-semibold mb-2 text-primary-purple text-center">Personalised AI Training</h3>
                         <p class="text-light-text text-center">We equip your employees with the knowledge and the skill to understand the AI technologies through personalised training.</p>
+                        <div class="mt-4 text-center">
+                            <a href="/what-we-do.html" class="inline-block bg-primary-purple text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-purple-700 transition-colors">Learn more</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,8 +183,13 @@
         // Smooth-scroll for in-page navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                const targetSelector = this.getAttribute('href');
+                if (!targetSelector) return;
+                const targetElement = document.querySelector(targetSelector);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
 
