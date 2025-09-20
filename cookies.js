@@ -212,37 +212,8 @@ Storage:
     const existing = readConsent();
     if (existing && typeof existing.analytics === 'boolean') {
       applyAnalyticsConsent(existing.analytics);
-      return;
     }
-
-    const banner = buildBanner();
-    document.body.appendChild(banner);
-
-    const acceptAllBtn = document.getElementById('cookie-accept-all');
-    const rejectBtn = document.getElementById('cookie-reject');
-    const prefsBtn = document.getElementById('cookie-preferences');
-
-    if (acceptAllBtn) acceptAllBtn.addEventListener('click', () => {
-      writeConsent({ analytics: true });
-      applyAnalyticsConsent(true);
-      hideBanner();
-    });
-
-    if (rejectBtn) rejectBtn.addEventListener('click', () => {
-      writeConsent({ analytics: false });
-      applyAnalyticsConsent(false);
-      hideBanner();
-    });
-
-    if (prefsBtn) prefsBtn.addEventListener('click', async () => {
-      const initial = { analytics: false };
-      const res = await showPreferences(initial);
-      if (res) {
-        writeConsent({ analytics: !!res.analytics });
-        applyAnalyticsConsent(!!res.analytics);
-        hideBanner();
-      }
-    });
+    // Banner removed: Only footer "Cookie preferences" opens the modal.
   }
 
   async function openPreferences() {
