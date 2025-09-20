@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>What we do - Advent AI</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="icon" type="image/png" sizes="32x32" href="/logo1.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/logo1.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/logo1.png">
+	<meta name="theme-color" content="#6C47FF">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					fontFamily: { sans: ['Inter', 'sans-serif'] },
+					colors: {
+						'primary-purple': '#6C47FF',
+						'light-bg': '#f0f4f8',
+						'light-card': '#ffffff',
+						'dark-text': '#334155',
+						'light-text': '#64748b'
+					}
+				}
+			}
+		}
+	</script>
+	<style>
+		html { scroll-behavior: smooth; }
+		@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+		.animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+	</style>
+</head>
+<body class="bg-light-bg text-dark-text font-sans">
+	<header class="bg-light-bg text-dark-text shadow-md sticky top-0 z-50" role="banner">
+		<div class="container mx-auto px-4">
+			<div class="flex items-center justify-between h-16">
+				<a href="/index.html#hero" class="flex items-center space-x-3">
+					<img src="/logo1.png" alt="Advent AI logo" class="h-8 w-8 drop-shadow-md" onerror="this.onerror=null;this.src='/logo1.png';">
+					<span class="text-lg font-semibold">Advent AI</span>
+				</a>
+				<nav class="hidden md:flex items-center space-x-8" aria-label="Primary">
+					<a href="/index.html#hero" class="hover:text-primary-purple transition-colors">Home</a>
+					<a href="/about.html" class="hover:text-primary-purple transition-colors">About us</a>
+					<a href="/what-we-do.html" aria-current="page" class="hover:text-primary-purple transition-colors text-primary-purple font-semibold">What we do</a>
+					<a href="/index.html#contact" class="hover:text-primary-purple transition-colors">Let's talk</a>
+				</nav>
+				<button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-dark-text hover:text-primary-purple focus:outline-none focus:ring-2 focus:ring-primary-purple" aria-label="Toggle navigation" aria-expanded="false">
+					<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+					</svg>
+				</button>
+			</div>
+			<div id="mobile-menu" class="md:hidden hidden pb-4" aria-label="Mobile Primary Navigation">
+				<div class="flex flex-col space-y-2">
+					<a href="/index.html#hero" class="py-2 px-2 rounded hover:bg-light-bg">Home</a>
+					<a href="/about.html" class="py-2 px-2 rounded hover:bg-light-bg">About us</a>
+					<a href="/what-we-do.html" aria-current="page" class="py-2 px-2 rounded hover:bg-light-bg text-primary-purple font-semibold">What we do</a>
+					<a href="/index.html#contact" class="py-2 px-2 rounded hover:bg-light-bg">Let's talk</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-3xl">
+				<div class="bg-light-card rounded-xl shadow-lg p-8 space-y-6" id="what-we-do-content">
+					<p class="text-lg leading-7">At Advent AI, we’re more than consultants — we’re builders, trainers, and partners in your AI journey. Each of our services is designed to help you adopt AI confidently, with solutions that are as practical as they are innovative.</p>
+
+					<h2 class="text-2xl font-semibold mt-6">AI Development &amp; Implementation</h2>
+					<p class="text-lg leading-7">Think of us as your co-architects in building AI solutions that don’t just look good on paper — they deliver results in the real world.</p>
+					<p class="text-lg leading-7">We begin by understanding your business challenges. Is it manual processes eating up time? Customer interactions needing personalization? Or compliance checks slowing you down? From there, we design AI that solves these problems step by step.</p>
+					<p class="text-lg leading-7">Our phased approach covers everything:</p>
+					<ul class="list-disc pl-6 space-y-2">
+						<li class="text-lg leading-7"><span class="font-semibold">Discovery &amp; Design:</span> We listen to your teams, study workflows, and design AI that fits seamlessly into existing processes.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Full-Cycle Development:</span> From preparing data to developing custom models, we handle the heavy lifting.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Iterative Prototyping:</span> No big-bang surprises — we build and test in small steps so you can see progress and course-correct early.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Deployment &amp; Support:</span> Once live, we stay by your side with security, monitoring, user training, and continuous model improvements.</li>
+					</ul>
+					<p class="text-lg leading-7 font-semibold">The impact</p>
+					<ul class="list-disc pl-6 space-y-2">
+						<li class="text-lg leading-7">Automations that save money and time.</li>
+						<li class="text-lg leading-7">AI systems that enhance decision-making and customer experience.</li>
+						<li class="text-lg leading-7">Enterprise-ready solutions that scale across departments.</li>
+					</ul>
+
+					<h2 class="text-2xl font-semibold mt-6">AI Consulting</h2>
+					<p class="text-lg leading-7">AI can feel like a maze — so many tools, so many promises. That’s where we step in as your guides.</p>
+					<p class="text-lg leading-7">Our consulting is not about delivering thick reports — it’s about giving you clarity and confidence. We start by assessing your readiness: Do you have the right data? Is your infrastructure AI‑friendly? Are your teams prepared for change?</p>
+					<p class="text-lg leading-7">From there, we:</p>
+					<ul class="list-disc pl-6 space-y-2">
+						<li class="text-lg leading-7"><span class="font-semibold">Map Out Opportunities:</span> Identify where AI can drive real ROI — whether in supply chain, pharma, manufacturing, or services.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Design Roadmaps:</span> A clear path with milestones, budgets, and change management steps.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Select the Right Tools:</span> From generative AI to predictive models, we recommend what fits your context.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Pilot Projects:</span> Build small-scale proofs‑of‑concept to show value and reduce risk.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Enable Change:</span> Equip your teams with the knowledge and mindset to embrace AI with confidence.</li>
+					</ul>
+					<p class="text-lg leading-7"><span class="font-semibold">The result:</span> A future-ready business that doesn’t just adopt AI — it thrives with it.</p>
+
+					<h2 class="text-2xl font-semibold mt-6">Roadmap Audits</h2>
+					<p class="text-lg leading-7">Sometimes organizations are already on their AI journey — but aren’t sure if they’re on the right track. That’s where our Roadmap Audits come in.</p>
+					<p class="text-lg leading-7">Think of it as an AI health check. We examine every aspect of your strategy and execution:</p>
+					<ul class="list-disc pl-6 space-y-2">
+						<li class="text-lg leading-7"><span class="font-semibold">Alignment:</span> Is your AI strategy truly connected to business objectives?</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Technology Fit:</span> Are you using the right models and tools, or overspending on unnecessary features?</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Costs:</span> Are licensing and cloud expenses optimized, or are there hidden fees eating into ROI?</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Performance:</span> Are your systems accurate, resilient, and fast enough for real‑world demands?</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Governance:</span> Are compliance, data privacy, and risk controls properly in place?</li>
+					</ul>
+					<p class="text-lg leading-7"><span class="font-semibold">Outcome:</span> Confidence that your AI journey is cost‑efficient, compliant, and scalable for growth.</p>
+
+					<h2 class="text-2xl font-semibold mt-6">Customised Training</h2>
+					<p class="text-lg leading-7">Technology only succeeds when people embrace it. That’s why training is at the heart of what we do.</p>
+					<p class="text-lg leading-7">Instead of one‑size‑fits‑all workshops, we design personalized programs tailored to different stakeholders:</p>
+					<ul class="list-disc pl-6 space-y-2">
+						<li class="text-lg leading-7"><span class="font-semibold">Executives &amp; Leaders:</span> Understand AI strategy, governance, and risks so you can lead with vision.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Technical Teams:</span> Dive deep into model development, pipelines, and troubleshooting.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">Functional Teams:</span> Learn how AI can streamline daily tasks like analytics, reporting, or compliance.</li>
+						<li class="text-lg leading-7"><span class="font-semibold">End Users:</span> Build hands‑on confidence in using AI systems through interactive, scenario‑based modules.</li>
+					</ul>
+					<p class="text-lg leading-7">We also use AI‑powered platforms to deliver adaptive learning paths — so people get exactly the training they need, at their own pace.</p>
+					<p class="text-lg leading-7"><span class="font-semibold">Why it matters:</span></p>
+					<ul class="list-disc pl-6 space-y-2">
+						<li class="text-lg leading-7">Teams adopt AI faster and with more confidence.</li>
+						<li class="text-lg leading-7">Skills stay future‑proof as technology evolves.</li>
+						<li class="text-lg leading-7">Organizations see quicker ROI because people actually use the tools effectively.</li>
+					</ul>
+
+					<p class="text-lg leading-7">In short: whether you’re just exploring AI, already building, or scaling up — we’re here to <span class="font-semibold">guide, build, audit, and train</span> every step of the way.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="bg-light-card text-light-text py-8 shadow-inner">
+		<div class="container mx-auto px-4 text-center">
+			<p>&copy; 2025 Advent AI. All rights reserved.</p>
+			<div class="flex justify-center space-x-6 mt-4">
+				<a href="#" class="hover:text-primary-purple transition-colors">LinkedIn</a>
+				<a href="#" class="hover:text-primary-purple transition-colors">Twitter</a>
+				<a href="#" class="hover:text-primary-purple transition-colors">Facebook</a>
+				<button id="cookie-prefs-link" class="underline hover:text-primary-purple transition-colors">Cookie preferences</button>
+			</div>
+		</div>
+	</footer>
+
+	<script src="cookies.js"></script>
+	<script>
+		// Smooth-scroll for in-page navigation links
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				const targetSelector = this.getAttribute('href');
+				if (!targetSelector) return;
+				const targetElement = document.querySelector(targetSelector);
+				if (targetElement) {
+					e.preventDefault();
+					targetElement.scrollIntoView({ behavior: 'smooth' });
+				}
+			});
+		});
+
+		// Mobile menu toggle
+		const mobileMenuButton = document.getElementById('mobile-menu-button');
+		const mobileMenu = document.getElementById('mobile-menu');
+		if (mobileMenuButton && mobileMenu) {
+			mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+		}
+
+		// Footer cookie preferences link
+		(function(){
+			const btn = document.getElementById('cookie-prefs-link');
+			if (btn && window.AdventCookies && typeof window.AdventCookies.openPreferences === 'function') {
+				btn.addEventListener('click', (e) => { e.preventDefault(); window.AdventCookies.openPreferences(); });
+			}
+		})();
+	</script>
+</body>
+</html>
+
+

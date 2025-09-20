@@ -51,7 +51,6 @@
         .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
         .animate-fade-in-2s { animation: fadeIn 1s ease-out 0.5s forwards; opacity: 0; }
         .animate-fade-in-3s { animation: fadeIn 1s ease-out 1s forwards; opacity: 0; }
-        .hidden{ display: none !important; }
     </style>
 </head>
 <body class="bg-light-bg text-dark-text font-sans">
@@ -175,10 +174,12 @@
                 <a href="#" class="hover:text-primary-purple transition-colors">LinkedIn</a>
                 <a href="#" class="hover:text-primary-purple transition-colors">Twitter</a>
                 <a href="#" class="hover:text-primary-purple transition-colors">Facebook</a>
+                <button id="cookie-prefs-link" class="underline hover:text-primary-purple transition-colors">Cookie preferences</button>
             </div>
         </div>
     </footer>
 
+    <script src="cookies.js"></script>
     <script>
         // Smooth-scroll for in-page navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -211,6 +212,14 @@
                 }
             }
         } catch (e) {}
+
+        // Footer cookie preferences link
+        (function(){
+            const btn = document.getElementById('cookie-prefs-link');
+            if (btn && window.AdventCookies && typeof window.AdventCookies.openPreferences === 'function') {
+                btn.addEventListener('click', (e) => { e.preventDefault(); window.AdventCookies.openPreferences(); });
+            }
+        })();
 
     </script>
     <script type="module">
