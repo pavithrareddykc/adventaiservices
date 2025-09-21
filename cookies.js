@@ -75,6 +75,14 @@ Storage:
       .adventai-consent-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display:none; }
       .adventai-consent-modal { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 32rem; width: 92vw; background: #ffffff; color: #334155; border-radius: 0.75rem; padding: 1rem; display:none; }
       .adventai-consent-hidden { display: none !important; }
+      #cookie-consent-banner { padding-bottom: env(safe-area-inset-bottom); }
+      #cookie-consent-banner .adventai-consent-actions { display:flex; gap:0.5rem; align-items:stretch; }
+      #cookie-consent-banner .adventai-consent-actions > button { flex: 1 1 auto; }
+      @media (max-width: 640px) {
+        #cookie-consent-banner { left: 50%; transform: translateX(-50%); width: calc(100vw - 1.5rem); }
+        #cookie-consent-banner .adventai-consent-actions { flex-direction: column; }
+        #cookie-consent-banner .adventai-consent-actions > button { width: 100%; }
+      }
     `;
     document.head.appendChild(style);
   }
@@ -100,7 +108,7 @@ Storage:
             <p style="margin:0 0 0.5rem 0;font-weight:600;">We use cookies</p>
             <p style="margin:0;color:#64748b;">We use essential cookies to make this site work. We’d also like to use analytics cookies to understand usage and improve our services. You can accept all, reject non‑essential, or set preferences.</p>
           </div>
-          <div style="display:flex;gap:0.5rem;align-items:center;">
+          <div class="adventai-consent-actions" style="display:flex;gap:0.5rem;align-items:center;">
             <button id="cookie-accept-all" style="background:#6C47FF;color:#ffffff;border:none;border-radius:9999px;padding:0.5rem 1rem;font-weight:600;cursor:pointer;">Accept all</button>
             <button id="cookie-reject" style="background:transparent;color:#334155;border:1px solid #cbd5e1;border-radius:9999px;padding:0.5rem 1rem;font-weight:600;cursor:pointer;">Reject non‑essential</button>
             <button id="cookie-preferences" style="background:transparent;color:#334155;border:1px solid #cbd5e1;border-radius:9999px;padding:0.5rem 1rem;font-weight:600;cursor:pointer;">Preferences</button>
@@ -212,8 +220,37 @@ Storage:
     const existing = readConsent();
     if (existing && typeof existing.analytics === 'boolean') {
       applyAnalyticsConsent(existing.analytics);
+      return; // Consent already provided; no banner needed
     }
-    // Banner removed: Only footer "Cookie preferences" opens the modal.
+
+    if (document.getElementById('cookie-consent-banner')) return;
+
+    const banner = buildBanner();
+    document.body.appendChild(banner);
+
+    const acceptBtn = document.getElementById('cookie-accept-all');
+    const rejectBtn = document.getElementById('cookie-reject');
+    const prefsBtn = document.getElementById('cookie-preferences');
+
+    if (acceptBtn) acceptBtn.addEventListener('click', () => {
+      writeConsent({ analytics: true });
+      applyAnalyticsConsent(true);
+      hideBanner();
+    });
+
+    if (rejectBtn) rejectBtn.addEventListener('click', () => {
+      writeConsent({ analytics: false });
+      applyAnalyticsConsent(false);
+      hideBanner();
+    });
+
+    if (prefsBtn) prefsBtn.addEventListener('click', async () => {
+      const res = await openPreferences();
+      const current = readConsent();
+      if (res || (current && typeof current.analytics === 'boolean')) {
+        hideBanner();
+      }
+    });
   }
 
   async function openPreferences() {
@@ -224,6 +261,7 @@ Storage:
       writeConsent({ analytics: !!res.analytics });
       applyAnalyticsConsent(!!res.analytics);
     }
+    return res;
   }
 
   // Expose minimal API

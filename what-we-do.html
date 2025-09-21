@@ -32,6 +32,10 @@
 		html { scroll-behavior: smooth; }
 		@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 		.animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+		/* Purple color for main headings only */
+		#what-we-do-content h2 { color: #6C47FF; }
+		/* Ensure anchored cards are fully visible below sticky header */
+		.anchor-target { scroll-margin-top: 5rem; }
 	</style>
 </head>
 <body class="bg-light-bg text-dark-text font-sans">
@@ -67,70 +71,82 @@
 
 	<main>
 		<section class="py-16">
-			<div class="container mx-auto px-4 max-w-3xl">
-				<div class="bg-light-card rounded-xl shadow-lg p-8 space-y-6" id="what-we-do-content">
-					<p class="text-lg leading-7">At Advent AI, we’re more than consultants — we’re builders, trainers, and partners in your AI journey. Each of our services is designed to help you adopt AI confidently, with solutions that are as practical as they are innovative.</p>
+			<div class="container mx-auto px-4 max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+				<div id="what-we-do-content" class="space-y-6">
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8 space-y-6">
+						<p class="text-lg leading-7">At Advent AI, we’re more than consultants — we’re builders, trainers, and partners in your AI journey. Each of our services is designed to help you adopt AI confidently, with solutions that are as practical as they are innovative.</p>
+					</div>
 
-					<h2 class="text-2xl font-semibold mt-6">AI Development &amp; Implementation</h2>
-					<p class="text-lg leading-7">Think of us as your co-architects in building AI solutions that don’t just look good on paper — they deliver results in the real world.</p>
-					<p class="text-lg leading-7">We begin by understanding your business challenges. Is it manual processes eating up time? Customer interactions needing personalization? Or compliance checks slowing you down? From there, we design AI that solves these problems step by step.</p>
-					<p class="text-lg leading-7">Our phased approach covers everything:</p>
-					<ul class="list-disc pl-6 space-y-2">
-						<li class="text-lg leading-7"><span class="font-semibold">Discovery &amp; Design:</span> We listen to your teams, study workflows, and design AI that fits seamlessly into existing processes.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Full-Cycle Development:</span> From preparing data to developing custom models, we handle the heavy lifting.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Iterative Prototyping:</span> No big-bang surprises — we build and test in small steps so you can see progress and course-correct early.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Deployment &amp; Support:</span> Once live, we stay by your side with security, monitoring, user training, and continuous model improvements.</li>
-					</ul>
-					<p class="text-lg leading-7 font-semibold">The impact</p>
-					<ul class="list-disc pl-6 space-y-2">
-						<li class="text-lg leading-7">Automations that save money and time.</li>
-						<li class="text-lg leading-7">AI systems that enhance decision-making and customer experience.</li>
-						<li class="text-lg leading-7">Enterprise-ready solutions that scale across departments.</li>
-					</ul>
+					<div id="ai-development-implementation" class="bg-light-card rounded-xl shadow-lg p-6 md:p-8 space-y-6 anchor-target">
+						<h2 class="text-2xl font-semibold mt-6">AI Development &amp; Implementation</h2>
+						<p class="text-lg leading-7">Think of us as your co-architects in building AI solutions that don’t just look good on paper — they deliver results in the real world.</p>
+						<p class="text-lg leading-7">We begin by understanding your business challenges. Is it manual processes eating up time? Customer interactions needing personalization? Or compliance checks slowing you down? From there, we design AI that solves these problems step by step.</p>
+						<p class="text-lg leading-7">Our phased approach covers everything:</p>
+						<ul class="list-disc pl-6 space-y-2">
+							<li class="text-lg leading-7"><span class="font-semibold">Discovery &amp; Design:</span> We listen to your teams, study workflows, and design AI that fits seamlessly into existing processes.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Full-Cycle Development:</span> From preparing data to developing custom models, we handle the heavy lifting.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Iterative Prototyping:</span> No big-bang surprises — we build and test in small steps so you can see progress and course-correct early.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Deployment &amp; Support:</span> Once live, we stay by your side with security, monitoring, user training, and continuous model improvements.</li>
+						</ul>
+						<p class="text-lg leading-7 font-semibold">The impact</p>
+						<ul class="list-disc pl-6 space-y-2">
+							<li class="text-lg leading-7">Automations that save money and time.</li>
+							<li class="text-lg leading-7">AI systems that enhance decision-making and customer experience.</li>
+							<li class="text-lg leading-7">Enterprise-ready solutions that scale across departments.</li>
+						</ul>
+					</div>
 
-					<h2 class="text-2xl font-semibold mt-6">AI Consulting</h2>
-					<p class="text-lg leading-7">AI can feel like a maze — so many tools, so many promises. That’s where we step in as your guides.</p>
-					<p class="text-lg leading-7">Our consulting is not about delivering thick reports — it’s about giving you clarity and confidence. We start by assessing your readiness: Do you have the right data? Is your infrastructure AI‑friendly? Are your teams prepared for change?</p>
-					<p class="text-lg leading-7">From there, we:</p>
-					<ul class="list-disc pl-6 space-y-2">
-						<li class="text-lg leading-7"><span class="font-semibold">Map Out Opportunities:</span> Identify where AI can drive real ROI — whether in supply chain, pharma, manufacturing, or services.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Design Roadmaps:</span> A clear path with milestones, budgets, and change management steps.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Select the Right Tools:</span> From generative AI to predictive models, we recommend what fits your context.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Pilot Projects:</span> Build small-scale proofs‑of‑concept to show value and reduce risk.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Enable Change:</span> Equip your teams with the knowledge and mindset to embrace AI with confidence.</li>
-					</ul>
-					<p class="text-lg leading-7"><span class="font-semibold">The result:</span> A future-ready business that doesn’t just adopt AI — it thrives with it.</p>
+					<div id="ai-consulting" class="bg-light-card rounded-xl shadow-lg p-6 md:p-8 space-y-6 anchor-target">
+						<h2 class="text-2xl font-semibold mt-6">AI Consulting</h2>
+						<p class="text-lg leading-7">AI can feel like a maze — so many tools, so many promises. That’s where we step in as your guides.</p>
+						<p class="text-lg leading-7">Our consulting is not about delivering thick reports — it’s about giving you clarity and confidence. We start by assessing your readiness: Do you have the right data? Is your infrastructure AI‑friendly? Are your teams prepared for change?</p>
+						<p class="text-lg leading-7">From there, we:</p>
+						<ul class="list-disc pl-6 space-y-2">
+							<li class="text-lg leading-7"><span class="font-semibold">Map Out Opportunities:</span> Identify where AI can drive real ROI — whether in supply chain, pharma, manufacturing, or services.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Design Roadmaps:</span> A clear path with milestones, budgets, and change management steps.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Select the Right Tools:</span> From generative AI to predictive models, we recommend what fits your context.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Pilot Projects:</span> Build small-scale proofs‑of‑concept to show value and reduce risk.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Enable Change:</span> Equip your teams with the knowledge and mindset to embrace AI with confidence.</li>
+						</ul>
+						<p class="text-lg leading-7"><span class="font-semibold">The result:</span> A future-ready business that doesn’t just adopt AI — it thrives with it.</p>
+					</div>
 
-					<h2 class="text-2xl font-semibold mt-6">Roadmap Audits</h2>
-					<p class="text-lg leading-7">Sometimes organizations are already on their AI journey — but aren’t sure if they’re on the right track. That’s where our Roadmap Audits come in.</p>
-					<p class="text-lg leading-7">Think of it as an AI health check. We examine every aspect of your strategy and execution:</p>
-					<ul class="list-disc pl-6 space-y-2">
-						<li class="text-lg leading-7"><span class="font-semibold">Alignment:</span> Is your AI strategy truly connected to business objectives?</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Technology Fit:</span> Are you using the right models and tools, or overspending on unnecessary features?</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Costs:</span> Are licensing and cloud expenses optimized, or are there hidden fees eating into ROI?</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Performance:</span> Are your systems accurate, resilient, and fast enough for real‑world demands?</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Governance:</span> Are compliance, data privacy, and risk controls properly in place?</li>
-					</ul>
-					<p class="text-lg leading-7"><span class="font-semibold">Outcome:</span> Confidence that your AI journey is cost‑efficient, compliant, and scalable for growth.</p>
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8 space-y-6">
+						<h2 class="text-2xl font-semibold mt-6">Roadmap Audits</h2>
+						<p class="text-lg leading-7">Sometimes organizations are already on their AI journey — but aren’t sure if they’re on the right track. That’s where our Roadmap Audits come in.</p>
+						<p class="text-lg leading-7">Think of it as an AI health check. We examine every aspect of your strategy and execution:</p>
+						<ul class="list-disc pl-6 space-y-2">
+							<li class="text-lg leading-7"><span class="font-semibold">Alignment:</span> Is your AI strategy truly connected to business objectives?</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Technology Fit:</span> Are you using the right models and tools, or overspending on unnecessary features?</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Costs:</span> Are licensing and cloud expenses optimized, or are there hidden fees eating into ROI?</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Performance:</span> Are your systems accurate, resilient, and fast enough for real‑world demands?</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Governance:</span> Are compliance, data privacy, and risk controls properly in place?</li>
+						</ul>
+						<p class="text-lg leading-7"><span class="font-semibold">Outcome:</span> Confidence that your AI journey is cost‑efficient, compliant, and scalable for growth.</p>
+					</div>
 
-					<h2 class="text-2xl font-semibold mt-6">Customised Training</h2>
-					<p class="text-lg leading-7">Technology only succeeds when people embrace it. That’s why training is at the heart of what we do.</p>
-					<p class="text-lg leading-7">Instead of one‑size‑fits‑all workshops, we design personalized programs tailored to different stakeholders:</p>
-					<ul class="list-disc pl-6 space-y-2">
-						<li class="text-lg leading-7"><span class="font-semibold">Executives &amp; Leaders:</span> Understand AI strategy, governance, and risks so you can lead with vision.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Technical Teams:</span> Dive deep into model development, pipelines, and troubleshooting.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">Functional Teams:</span> Learn how AI can streamline daily tasks like analytics, reporting, or compliance.</li>
-						<li class="text-lg leading-7"><span class="font-semibold">End Users:</span> Build hands‑on confidence in using AI systems through interactive, scenario‑based modules.</li>
-					</ul>
-					<p class="text-lg leading-7">We also use AI‑powered platforms to deliver adaptive learning paths — so people get exactly the training they need, at their own pace.</p>
-					<p class="text-lg leading-7"><span class="font-semibold">Why it matters:</span></p>
-					<ul class="list-disc pl-6 space-y-2">
-						<li class="text-lg leading-7">Teams adopt AI faster and with more confidence.</li>
-						<li class="text-lg leading-7">Skills stay future‑proof as technology evolves.</li>
-						<li class="text-lg leading-7">Organizations see quicker ROI because people actually use the tools effectively.</li>
-					</ul>
+					<div id="customised-training" class="bg-light-card rounded-xl shadow-lg p-6 md:p-8 space-y-6 anchor-target">
+						<h2 class="text-2xl font-semibold mt-6">Customised Training</h2>
+						<p class="text-lg leading-7">Technology only succeeds when people embrace it. That’s why training is at the heart of what we do.</p>
+						<p class="text-lg leading-7">Instead of one‑size‑fits‑all workshops, we design personalized programs tailored to different stakeholders:</p>
+						<ul class="list-disc pl-6 space-y-2">
+							<li class="text-lg leading-7"><span class="font-semibold">Executives &amp; Leaders:</span> Understand AI strategy, governance, and risks so you can lead with vision.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Technical Teams:</span> Dive deep into model development, pipelines, and troubleshooting.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">Functional Teams:</span> Learn how AI can streamline daily tasks like analytics, reporting, or compliance.</li>
+							<li class="text-lg leading-7"><span class="font-semibold">End Users:</span> Build hands‑on confidence in using AI systems through interactive, scenario‑based modules.</li>
+						</ul>
+						<p class="text-lg leading-7">We also use AI‑powered platforms to deliver adaptive learning paths — so people get exactly the training they need, at their own pace.</p>
+						<p class="text-lg leading-7"><span class="font-semibold">Why it matters:</span></p>
+						<ul class="list-disc pl-6 space-y-2">
+							<li class="text-lg leading-7">Teams adopt AI faster and with more confidence.</li>
+							<li class="text-lg leading-7">Skills stay future‑proof as technology evolves.</li>
+							<li class="text-lg leading-7">Organizations see quicker ROI because people actually use the tools effectively.</li>
+						</ul>
+					</div>
 
-					<p class="text-lg leading-7">In short: whether you’re just exploring AI, already building, or scaling up — we’re here to <span class="font-semibold">guide, build, audit, and train</span> every step of the way.</p>
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8 space-y-6">
+						<p class="text-lg leading-7">In short: whether you’re just exploring AI, already building, or scaling up — we’re here to <span class="font-semibold">guide, build, audit, and train</span> every step of the way.</p>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -174,6 +190,18 @@
 			if (btn && window.AdventCookies && typeof window.AdventCookies.openPreferences === 'function') {
 				btn.addEventListener('click', (e) => { e.preventDefault(); window.AdventCookies.openPreferences(); });
 			}
+		})();
+
+		// Apply staggered fade-up animation to content card (match homepage hero effect)
+		(function(){
+			const container = document.getElementById('what-we-do-content');
+			if (!container) return;
+			const children = Array.from(container.children);
+			children.forEach((el, index) => {
+				el.style.opacity = '0';
+				el.style.animation = 'fadeIn 1s ease-out forwards';
+				el.style.animationDelay = (index * 0.12) + 's';
+			});
 		})();
 	</script>
 </body>
