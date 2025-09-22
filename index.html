@@ -23,6 +23,26 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/logo1.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/logo1.png">
     <meta name="theme-color" content="#6C47FF">
+    
+    <!-- SEO: Canonical, meta description, robots -->
+    <link rel="canonical" href="https://www.adventaiservices.com/">
+    <meta name="description" content="Advent AI provides customised AI consulting, model development, and personalised training to help businesses adopt AI confidently. Contact us to get started.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Advent AI">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Advent AI - Consulting & Training">
+    <meta property="og:description" content="Advent AI provides customised AI consulting, model development, and personalised training to help businesses adopt AI confidently. Contact us to get started.">
+    <meta property="og:url" content="https://www.adventaiservices.com/">
+    <meta property="og:image" content="https://www.adventaiservices.com/logo1.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Advent AI - Consulting & Training">
+    <meta name="twitter:description" content="Advent AI provides customised AI consulting, model development, and personalised training to help businesses adopt AI confidently. Contact us to get started.">
+    <meta name="twitter:image" content="https://www.adventaiservices.com/logo1.png">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -52,6 +72,40 @@
         .animate-fade-in-2s { animation: fadeIn 1s ease-out 0.5s forwards; opacity: 0; }
         .animate-fade-in-3s { animation: fadeIn 1s ease-out 1s forwards; opacity: 0; }
     </style>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.adventaiservices.com/#organization",
+          "name": "Advent AI",
+          "url": "https://www.adventaiservices.com/",
+          "logo": "https://www.adventaiservices.com/logo1.png",
+          "sameAs": [
+            "https://www.linkedin.com/company/advent-ai-services/"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.adventaiservices.com/#website",
+          "url": "https://www.adventaiservices.com/",
+          "name": "Advent AI",
+          "publisher": { "@id": "https://www.adventaiservices.com/#organization" },
+          "potentialAction": {
+            "@type": "ContactAction",
+            "target": "https://www.adventaiservices.com/#contact",
+            "name": "Contact Advent AI"
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Robots & Sitemap links -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 <body class="bg-light-bg text-dark-text font-sans">
 

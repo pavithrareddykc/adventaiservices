@@ -1,0 +1,5 @@
+# robots.txt for https://www.adventaiservices.com/
+User-agent: *
+Allow: /
+
+Sitemap: https://www.adventaiservices.com/sitemap.xml

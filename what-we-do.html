@@ -11,6 +11,25 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="/logo1.png">
 	<link rel="apple-touch-icon" sizes="180x180" href="/logo1.png">
 	<meta name="theme-color" content="#6C47FF">
+	<!-- SEO: Canonical, meta description, robots -->
+	<link rel="canonical" href="https://www.adventaiservices.com/what-we-do.html">
+	<meta name="description" content="Advent AI services: AI consulting, development & implementation, roadmap audits, and personalised training to drive ROI and confident AI adoption.">
+	<meta name="robots" content="index, follow">
+	<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+	<!-- Open Graph -->
+	<meta property="og:site_name" content="Advent AI">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="What we do - Advent AI">
+	<meta property="og:description" content="Advent AI services: AI consulting, development & implementation, roadmap audits, and personalised training to drive ROI and confident AI adoption.">
+	<meta property="og:url" content="https://www.adventaiservices.com/what-we-do.html">
+	<meta property="og:image" content="https://www.adventaiservices.com/logo1.png">
+
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="What we do - Advent AI">
+	<meta name="twitter:description" content="Advent AI services: AI consulting, development & implementation, roadmap audits, and personalised training to drive ROI and confident AI adoption.">
+	<meta name="twitter:image" content="https://www.adventaiservices.com/logo1.png">
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script>
 		tailwind.config = {
@@ -37,6 +56,25 @@
 		/* Ensure anchored cards are fully visible below sticky header */
 		.anchor-target { scroll-margin-top: 5rem; }
 	</style>
+
+	<!-- Structured Data -->
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "CollectionPage",
+	  "@id": "https://www.adventaiservices.com/what-we-do.html#services",
+	  "url": "https://www.adventaiservices.com/what-we-do.html",
+	  "name": "What we do - Advent AI",
+	  "isPartOf": { "@id": "https://www.adventaiservices.com/#website" },
+	  "hasPart": [
+	    { "@type": "Service", "name": "AI Development & Implementation" },
+	    { "@type": "Service", "name": "AI Consulting" },
+	    { "@type": "Service", "name": "Roadmap Audits" },
+	    { "@type": "Service", "name": "Customised Training" }
+	  ],
+	  "publisher": { "@id": "https://www.adventaiservices.com/#organization" }
+	}
+	</script>
 </head>
 <body class="bg-light-bg text-dark-text font-sans">
 	<header class="bg-light-bg text-dark-text shadow-md sticky top-0 z-50" role="banner">
