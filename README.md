@@ -24,7 +24,8 @@ To make organizations work better with AI and make AI work for people. We believ
 ## Website Features
 
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Smooth Navigation**: Intuitive navigation with mobile menu toggle
+- **Smooth Navigation**: Intuitive navigation with mobile menu toggle (Home, About us, What we do, Our Leadership, Let's talk)
+- **Our Leadership Page**: Dedicated page introducing the leadership team (K C Pavithra — Founder & CTO; Vijayarangan L — Advisor and Principal Consultant, Financial Services) with bios and photos, full SEO, and schema.org AboutPage structured data
 - **Contact Integration**: Formspree-powered contact form with progressive enhancement
 - **SEO Optimized**: Complete meta tags, structured data, sitemap, and robots.txt
 - **Cookie Consent**: GDPR-compliant cookie management system
@@ -37,15 +38,24 @@ adventaiservices/
 ├── index.html              # Main homepage (hero, services, contact)
 ├── about.html              # About page with company story and values
 ├── what-we-do.html         # Detailed services page
+├── our-leadership.html     # Leadership team page (bios and photos)
+├── logo.png                # Logo asset
 ├── logo1.png               # Primary logo and favicon
 ├── logo2.png               # Alternative logo variant
+├── pavithra.png            # Leadership photo — K C Pavithra (Founder & CTO)
+├── vijayarangan.png        # Leadership photo — Vijayarangan L (Advisor)
 ├── cookies.js              # Cookie consent and utilities
 ├── CNAME                   # Custom domain for www.adventaiservices.com
-├── sitemap.xml             # SEO sitemap
+├── sitemap.xml             # SEO sitemap (includes all main pages)
 ├── robots.txt              # Search engine directives
+├── .gitignore              # Git ignore rules (e.g. server.log)
 ├── frontend/
 │   └── tests/
 │       └── test_frontend.py # Playwright E2E tests
+├── about us - content.html  # Source content for About (optional reference)
+├── about us - content.odt
+├── what we do - content.html
+├── what we do - content.odt
 └── README.md               # This file
 ```
 
