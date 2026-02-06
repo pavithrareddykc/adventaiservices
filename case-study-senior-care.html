@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<!--
+  Case Study: Senior Care Software Ecosystem — Advent AI
+  ------------------------------------------------
+  Transforming Elder Care Through Digital Solutions.
+  Content derived from case-studies.pdf (page 3 of 3).
+-->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Senior Care Software Ecosystem — Elder Care Technology — Advent AI</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="icon" type="image/png" sizes="32x32" href="/logo1.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/logo1.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/logo1.png">
+	<meta name="theme-color" content="#6C47FF">
+	<link rel="canonical" href="https://www.adventaiservices.com/case-study-senior-care.html">
+	<meta name="description" content="Advent AI partners with an established healthcare company to build digital infrastructure for senior care: companion app, family dashboard, and always-on backend. Dependable. Always.">
+	<meta name="robots" content="index, follow">
+	<meta property="og:site_name" content="Advent AI">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Senior Care Software Ecosystem — Elder Care Technology — Advent AI">
+	<meta property="og:description" content="Transforming elder care through digital solutions: companion app, family dashboard, and secure backend.">
+	<meta property="og:url" content="https://www.adventaiservices.com/case-study-senior-care.html">
+	<meta property="og:image" content="https://www.adventaiservices.com/logo1.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Senior Care Software Ecosystem — Advent AI">
+	<meta name="twitter:description" content="Elder care technology: companion app, family dashboard, and secure backend.">
+	<meta name="twitter:image" content="https://www.adventaiservices.com/logo1.png">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					fontFamily: { sans: ['Inter', 'sans-serif'] },
+					colors: {
+						'primary-purple': '#6C47FF',
+						'light-bg': '#f0f4f8',
+						'light-card': '#ffffff',
+						'dark-text': '#334155',
+						'light-text': '#64748b'
+					}
+				}
+			}
+		}
+	</script>
+	<style>
+		html { scroll-behavior: smooth; }
+		@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+		#case-study-content h2 { color: #6C47FF; }
+	</style>
+</head>
+<body class="bg-light-bg text-dark-text font-sans">
+	<header class="bg-light-bg text-dark-text shadow-md sticky top-0 z-50" role="banner">
+		<div class="container mx-auto px-4">
+			<div class="flex items-center justify-between h-16">
+				<a href="/index.html#hero" class="flex items-center space-x-3">
+					<img src="/logo1.png" alt="Advent AI logo" class="h-8 w-8 drop-shadow-md" onerror="this.onerror=null;this.src='/logo1.png';">
+					<span class="text-lg font-bold">Advent AI</span>
+				</a>
+				<nav class="hidden md:flex items-center space-x-8" aria-label="Primary">
+					<a href="/index.html#hero" class="font-bold hover:text-primary-purple transition-colors">Home</a>
+					<a href="/about.html" class="font-bold hover:text-primary-purple transition-colors">About us</a>
+					<a href="/what-we-do.html" class="font-bold hover:text-primary-purple transition-colors">What we do</a>
+					<a href="/our-leadership.html" class="font-bold hover:text-primary-purple transition-colors">Our Leadership</a>
+					<a href="/case-studies.html" class="font-bold hover:text-primary-purple transition-colors text-primary-purple">Case Studies</a>
+					<a href="/index.html#contact" class="font-bold hover:text-primary-purple transition-colors">Let's talk</a>
+				</nav>
+				<button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-dark-text hover:text-primary-purple focus:outline-none focus:ring-2 focus:ring-primary-purple" aria-label="Toggle navigation" aria-expanded="false">
+					<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+					</svg>
+				</button>
+			</div>
+			<div id="mobile-menu" class="md:hidden hidden pb-4" aria-label="Mobile Primary Navigation">
+				<div class="flex flex-col space-y-2">
+					<a href="/index.html#hero" class="py-2 px-2 rounded font-bold hover:bg-light-bg">Home</a>
+					<a href="/about.html" class="py-2 px-2 rounded font-bold hover:bg-light-bg">About us</a>
+					<a href="/what-we-do.html" class="py-2 px-2 rounded font-bold hover:bg-light-bg">What we do</a>
+					<a href="/our-leadership.html" class="py-2 px-2 rounded font-bold hover:bg-light-bg">Our Leadership</a>
+					<a href="/case-studies.html" class="py-2 px-2 rounded font-bold hover:bg-light-bg text-primary-purple">Case Studies</a>
+					<a href="/index.html#contact" class="py-2 px-2 rounded font-bold hover:bg-light-bg">Let's talk</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="py-16">
+			<div class="container mx-auto px-4 max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+				<p class="mb-6">
+					<a href="/case-studies.html" class="text-primary-purple font-bold hover:underline inline-flex items-center gap-1">← Back to Case Studies</a>
+				</p>
+				<div id="case-study-content" class="space-y-6">
+					<!-- Title card -->
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8 border-l-4 border-primary-purple">
+						<h1 class="text-3xl font-bold text-primary-purple">Senior Care Software Ecosystem</h1>
+						<p class="text-lg text-light-text mt-2">Transforming Elder Care Through Digital Solutions</p>
+					</div>
+
+					<!-- Overview -->
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8">
+						<h2 class="text-xl font-bold mb-4">Overview</h2>
+						<p class="text-dark-text">Advent AI serves as the primary software development partner for one of the established healthcare companies, who are venturing into the senior care space, architecting the digital infrastructure that powers their <strong>"Dependable. Always."</strong> promise. We maintain a sophisticated software ecosystem that transforms raw sensor data into actionable insights, ensuring that seniors live safely while staying connected to their families and caregivers.</p>
+					</div>
+
+					<!-- Challenges -->
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8">
+						<h2 class="text-xl font-bold mb-4">Challenges Being Addressed</h2>
+						<ul class="list-disc pl-6 space-y-2 text-dark-text">
+							<li><strong>Real-time Monitoring Gap</strong> — A lack of centralized systems to track health metrics and emergency alerts effectively.</li>
+							<li><strong>Social Isolation</strong> — "Urban Loneliness" resulting from fragmented communication between seniors and their families.</li>
+							<li><strong>Information Asymmetry</strong> — Family members often lack visibility into the daily well-being of their loved ones.</li>
+							<li><strong>Accessibility Barriers</strong> — Traditional software interfaces are often too complex for seniors with functional or cognitive declines.</li>
+						</ul>
+					</div>
+
+					<!-- Advent AI Software Solution -->
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8">
+						<h2 class="text-xl font-bold mb-4">Advent AI Software Solution</h2>
+						<div class="grid md:grid-cols-1 gap-6">
+							<!-- A: Companion App -->
+							<div class="border-l-4 border-primary-purple pl-4">
+								<h3 class="font-bold text-dark-text mb-2">A. Companion App — For Seniors</h3>
+								<ul class="list-none space-y-1 text-dark-text">
+									<li>✓ <strong>Simplified UI/UX</strong> — Large touch targets and intuitive navigation.</li>
+									<li>✓ <strong>One-Touch Assistance</strong> — Immediate gateway to emergency services.</li>
+									<li>✓ <strong>Daily Reminders</strong> — Automated alerts for medications.</li>
+								</ul>
+							</div>
+							<!-- B: Family Dashboard -->
+							<div class="border-l-4 border-primary-purple pl-4">
+								<h3 class="font-bold text-dark-text mb-2">B. Family Dashboard — For Families</h3>
+								<ul class="list-none space-y-1 text-dark-text">
+									<li>✓ <strong>Health Analytics</strong> — Real-time sync of vital health metrics.</li>
+									<li>✓ <strong>Emergency Alerts</strong> — Instant notifications for fall detections.</li>
+									<li>✓ <strong>Device Management</strong> — Remote monitoring of safety sensors.</li>
+								</ul>
+							</div>
+							<!-- C: Infrastructure -->
+							<div class="border-l-4 border-primary-purple pl-4">
+								<h3 class="font-bold text-dark-text mb-2">C. Infrastructure — "Always On" Backend</h3>
+								<ul class="list-none space-y-1 text-dark-text">
+									<li>✓ <strong>Data Orchestration</strong> — Processes signals from IoT endpoints.</li>
+									<li>✓ <strong>Service Integration</strong> — Interface for 24/7 response teams.</li>
+									<li>✓ <strong>Secure Storage</strong> — High-level encryption for health data.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!-- Key Application Features -->
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8">
+						<h2 class="text-xl font-bold mb-4">Key Application Features</h2>
+						<ul class="list-disc pl-6 space-y-2 text-dark-text">
+							<li><strong>Unified Health Profile</strong> — Aggregating data from multiple sources into a single, cohesive health record accessible by authorized family members.</li>
+							<li><strong>Multi-Channel Sync</strong> — Real-time state synchronization between Family App, Monitoring Dashboard, and Emergency Responders.</li>
+							<li><strong>Community Engagement</strong> — Digital social tools that help seniors connect with peers, directly addressing the challenge of urban loneliness.</li>
+						</ul>
+					</div>
+
+					<!-- The Technical Edge -->
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8">
+						<h2 class="text-xl font-bold mb-4">The Technical Edge</h2>
+						<div class="overflow-x-auto">
+							<table class="w-full border border-gray-200 rounded-lg overflow-hidden">
+								<thead class="bg-gray-100">
+									<tr>
+										<th class="text-left p-3 font-bold">Architecture Component</th>
+										<th class="text-left p-3 font-bold">Standard Solutions</th>
+										<th class="text-left p-3 font-bold">Advent AI Ecosystem</th>
+									</tr>
+								</thead>
+								<tbody class="text-dark-text">
+									<tr class="border-t border-gray-200"><td class="p-3">Data Orchestration</td><td class="p-3">Siloed Batch Processing</td><td class="p-3">Real-time IoT Signal Routing</td></tr>
+									<tr class="border-t border-gray-200"><td class="p-3">Alert Synchronization</td><td class="p-3">Fragmented Notifications</td><td class="p-3">Multi-Channel State Sync</td></tr>
+									<tr class="border-t border-gray-200"><td class="p-3">UX Strategy</td><td class="p-3">Generic Mobile Design</td><td class="p-3">Senior-First Adaptive UI</td></tr>
+									<tr class="border-t border-gray-200"><td class="p-3">Health Record System</td><td class="p-3">Scattered Data Points</td><td class="p-3">Unified Health Profile</td></tr>
+									<tr class="border-t border-gray-200"><td class="p-3">Security Architecture</td><td class="p-3">Standard Encryption</td><td class="p-3">E2E HIPAA-Ready Protection</td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- Conclusion -->
+					<div class="bg-light-card rounded-xl shadow-lg p-6 md:p-8 border-l-4 border-primary-purple">
+						<h2 class="text-xl font-bold mb-4">Conclusion</h2>
+						<p class="text-dark-text">As the consulting &amp; development partner, Advent AI is architecting the future of care.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="bg-light-card text-light-text py-8 shadow-inner">
+		<div class="container mx-auto px-4 text-center">
+			<p>&copy; 2026 Advent AI. All rights reserved.</p>
+			<div class="flex justify-center space-x-6 mt-4">
+				<a href="#" class="hover:text-primary-purple transition-colors">LinkedIn</a>
+				<button id="cookie-prefs-link" class="underline hover:text-primary-purple transition-colors">Cookie preferences</button>
+			</div>
+		</div>
+	</footer>
+
+	<script src="cookies.js"></script>
+	<script>
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				const targetSelector = this.getAttribute('href');
+				if (!targetSelector) return;
+				const targetElement = document.querySelector(targetSelector);
+				if (targetElement) { e.preventDefault(); targetElement.scrollIntoView({ behavior: 'smooth' }); }
+			});
+		});
+		var mobileMenuButton = document.getElementById('mobile-menu-button');
+		var mobileMenu = document.getElementById('mobile-menu');
+		if (mobileMenuButton && mobileMenu) { mobileMenuButton.addEventListener('click', function () { mobileMenu.classList.toggle('hidden'); }); }
+		(function(){
+			var btn = document.getElementById('cookie-prefs-link');
+			if (btn && window.AdventCookies && typeof window.AdventCookies.openPreferences === 'function') {
+				btn.addEventListener('click', function (e) { e.preventDefault(); window.AdventCookies.openPreferences(); });
+			}
+		})();
+		(function(){
+			var container = document.getElementById('case-study-content');
+			if (!container) return;
+			Array.from(container.children).forEach(function (el, index) {
+				el.style.opacity = '0';
+				el.style.animation = 'fadeIn 1s ease-out forwards';
+				el.style.animationDelay = (index * 0.12) + 's';
+			});
+		})();
+	</script>
+</body>
+</html>
