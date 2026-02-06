@@ -24,8 +24,8 @@ To make organizations work better with AI and make AI work for people. We believ
 ## Website Features
 
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Smooth Navigation**: Intuitive navigation with mobile menu toggle (Home, About us, What we do, Our Leadership, Let's talk)
-- **Our Leadership Page**: Dedicated page introducing the leadership team (K C Pavithra — Founder & CTO; Vijayarangan L — Advisor and Principal Consultant, Financial Services) with bios and photos, full SEO, and schema.org AboutPage structured data
+- **Smooth Navigation**: Intuitive navigation with mobile menu toggle (Home, About us, What we do, Case studies, Our Leadership, Let's talk)
+- **Case Studies**: Dedicated case-studies hub and individual pages (Agentic ERP, Book Learning Ecosystem, Senior Care, SmartMerge) with PDF summary
 - **Contact Integration**: Formspree-powered contact form with progressive enhancement
 - **SEO Optimized**: Complete meta tags, structured data, sitemap, and robots.txt
 - **Cookie Consent**: GDPR-compliant cookie management system
@@ -38,6 +38,12 @@ adventaiservices/
 ├── index.html              # Main homepage (hero, services, contact)
 ├── about.html              # About page with company story and values
 ├── what-we-do.html         # Detailed services page
+├── case-studies.html       # Case studies hub (overview and links to individual studies)
+├── case-studies.pdf        # Case studies summary (PDF)
+├── case-study-agentic-erp.html
+├── case-study-book-learning-ecosystem.html
+├── case-study-senior-care.html
+├── case-study-smartmerge.html
 ├── our-leadership.html     # Leadership team page (bios and photos)
 ├── logo.png                # Logo asset
 ├── logo1.png               # Primary logo and favicon
@@ -46,7 +52,7 @@ adventaiservices/
 ├── vijayarangan.png        # Leadership photo — Vijayarangan L (Advisor)
 ├── cookies.js              # Cookie consent and utilities
 ├── CNAME                   # Custom domain for www.adventaiservices.com
-├── sitemap.xml             # SEO sitemap (includes all main pages)
+├── sitemap.xml             # SEO sitemap (includes main pages and case studies)
 ├── robots.txt              # Search engine directives
 ├── .gitignore              # Git ignore rules (e.g. server.log)
 ├── frontend/
