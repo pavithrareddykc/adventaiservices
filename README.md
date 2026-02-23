@@ -24,7 +24,8 @@ To make organizations work better with AI and make AI work for people. We believ
 ## Website Features
 
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Smooth Navigation**: Intuitive navigation with mobile menu toggle (Home, About us, What we do, Case studies, Our Leadership, Let's talk)
+- **Smooth Navigation**: Intuitive navigation with mobile menu toggle (Home, About us, What we do, Industries we serve, Case studies, Our Leadership, Let's talk)
+- **Industries We Serve**: Dedicated page showcasing sectors and use cases (e.g. healthcare, manufacturing, services)
 - **Case Studies**: Dedicated case-studies hub and individual pages (Agentic ERP, Book Learning Ecosystem, Senior Care, SmartMerge) with PDF summary
 - **Contact Integration**: Formspree-powered contact form with progressive enhancement
 - **SEO Optimized**: Complete meta tags, structured data, sitemap, and robots.txt
@@ -38,6 +39,7 @@ adventaiservices/
 ├── index.html              # Main homepage (hero, services, contact)
 ├── about.html              # About page with company story and values
 ├── what-we-do.html         # Detailed services page
+├── industries-we-serve.html # Industries we serve (sectors and use cases)
 ├── case-studies.html       # Case studies hub (overview and links to individual studies)
 ├── case-studies.pdf        # Case studies summary (PDF)
 ├── case-study-agentic-erp.html
