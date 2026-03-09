@@ -1,0 +1,32 @@
+/*
+ * Global body text styling — Advent AI
+ * -------------------------------------
+ * Makes all body text (paragraphs, list items, form labels) uniform across
+ * the site: one grey colour and medium font (weight and size). Headings (h1–h6)
+ * and titles are not affected. This file is loaded after Tailwind so these
+ * rules override utility classes like text-light-text or text-lg inside
+ * .site-body-text areas.
+ */
+.site-body-text {
+	font-size: 1rem;
+}
+.site-body-text p,
+.site-body-text li,
+.site-body-text label {
+	color: #4b5563;
+	font-weight: 500;
+	font-size: 1rem;
+	line-height: 1.625;
+}
+
+/* Hero tagline: keep larger size and grey; do not shrink to body text size */
+.site-body-text .hero-tagline {
+	font-size: 1.125rem;
+	font-weight: 500;
+	color: #4b5563;
+}
+@media (min-width: 768px) {
+	.site-body-text .hero-tagline {
+		font-size: 1.25rem;
+	}
+}
