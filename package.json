@@ -1,0 +1,12 @@
+{
+  "name": "advent-ai-website",
+  "version": "1.0.0",
+  "description": "Advent AI website with case studies",
+  "type": "module",
+  "scripts": {
+    "pdf:case-studies": "node scripts/generate-case-studies-pdf.mjs"
+  },
+  "dependencies": {
+    "puppeteer": "^21.6.1"
+  }
+}

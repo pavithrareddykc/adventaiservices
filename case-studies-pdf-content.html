@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<!--
+  Case Studies PDF Content — Advent AI
+  ====================================
+  Combined pageless PDF with all 4 case studies:
+  1. SmartMerge
+  2. Agentic ERP
+  3. Converting a Book into Learning Ecosystem
+  4. Senior Care Software Ecosystem
+-->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Case Studies — Advent AI</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					fontFamily: { sans: ['Inter', 'sans-serif'] },
+					colors: {
+						'primary-purple': '#6C47FF',
+						'light-bg': '#f0f4f8',
+						'light-card': '#ffffff',
+						'dark-text': '#334155',
+						'light-text': '#64748b'
+					}
+				}
+			}
+		}
+	</script>
+	<style>
+		html, body { margin: 0; padding: 0; background: white; }
+		body { font-family: 'Inter', sans-serif; color: #334155; }
+		h1 { color: #6C47FF; font-size: 2.2rem; font-weight: bold; }
+		h2 { color: #6C47FF; font-size: 1.3rem; font-weight: bold; }
+		h3 { color: #334155; font-weight: bold; }
+		p { line-height: 1.6; margin: 0.5rem 0; }
+		ul, ol { margin: 0.5rem 0 0.5rem 1.5rem; }
+		li { margin: 0.3rem 0; }
+		table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+		table th, table td { border: 1px solid #e2e8f0; padding: 0.75rem; text-align: left; }
+		table th { background-color: #f1f5f9; font-weight: bold; }
+
+		/* Page-specific styling */
+		.title-page { page-break-after: always; background: white; padding: 40px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+		.case-study { page-break-before: always; background: white; padding: 40px; margin: 0; }
+		.case-study:first-of-type { page-break-before: avoid; }
+
+		.title-card { border-left: 4px solid #6C47FF; padding-left: 20px; margin-bottom: 20px; }
+		.content-card { margin-bottom: 18px; }
+		.divider { display: none; }
+		.pdf-title { text-align: center; font-size: 2.5rem; font-weight: bold; color: #6C47FF; margin: 80px 0 20px 0; }
+		.pdf-subtitle { text-align: center; font-size: 1.3rem; color: #64748b; margin-bottom: 100px; }
+	</style>
+</head>
+<body class="bg-white text-dark-text">
+	<!-- Title Page -->
+	<div class="title-page">
+		<div class="pdf-title">Advent AI Case Studies</div>
+		<div class="pdf-subtitle">Real-World AI Solutions and Implementation Success</div>
+		<p style="text-align: center; margin-top: 120px; font-size: 0.95rem; color: #64748b;">
+			&copy; 2026 Advent AI. All rights reserved.
+		</p>
+	</div>
+
+	<!-- Case Study 1: SmartMerge -->
+	<div class="case-study">
+		<div class="title-card">
+			<h1>SmartMerge</h1>
+			<p style="font-size: 1.1rem; color: #64748b; margin-top: 10px;">Revolutionizing SQL Code Integration</p>
+		</div>
+
+		<div class="content-card">
+			<h2>Overview</h2>
+			<p>In the world of enterprise software, SQL stored procedures are often the "source of truth" for critical business logic. However, traditional merge tools are "blind" to SQL structure, treating code as simple lines of text. This leads to <strong>False Conflicts</strong>—where developers spend hours manually resolving "clashes" that aren't actually conflicts at all.</p>
+			<p>SmartMerge is an intelligent, structurally-aware merge utility designed specifically for SQL. By "understanding" the logical components of a stored procedure (Parameters, History, Body), it reduces manual merge effort and eliminates the risk of human error during complex code integrations. We designed and developed this tool for the software provider of one of the largest manufacturing companies.</p>
+		</div>
+
+		<div class="content-card">
+			<h2>The Technical Deep Dive: "Structural Awareness"</h2>
+			<h3>State-Machine SQL Parsing</h3>
+			<p>Unlike traditional tools that see a flat file, SmartMerge utilizes a custom State-Machine Parser. It decomposes a SQL file into logical blocks:</p>
+			<ul>
+				<li><strong>Header</strong> — Metadata and boilerplate</li>
+				<li><strong>History</strong> — Cumulative modification logs</li>
+				<li><strong>Params & Declarations</strong> — Order-agnostic components</li>
+				<li><strong>Body</strong> — Core executable logic</li>
+			</ul>
+			<h3>Multi-Strategy Merge Engine</h3>
+			<ul>
+				<li><strong>Map-Based Merge:</strong> Builds name-to-definition maps for parameters and declarations to resolve position-independent changes automatically.</li>
+				<li><strong>Append-Unique:</strong> Treats history as additive, combining logs from both sides while eliminating duplicates.</li>
+				<li><strong>Superset Resolution:</strong> If one developer's change is a "superset" of the other (e.g., bug fix vs bug fix + comment), SmartMerge automatically selects the more comprehensive version, preventing "Double-Fix" conflicts.</li>
+			</ul>
+			<h3>Conflict Refinement</h3>
+			<p>When a true conflict occurs, SmartMerge performs Conflict Refinement. It strips away common prefix and suffix lines from the conflict block to present the developer with the exact point of contention, rather than a giant block of unrelated code.</p>
+		</div>
+
+		<div class="content-card">
+			<h2>Business Value</h2>
+			<div style="margin: 20px 0;">
+				<div style="margin-bottom: 20px; border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>Risk Mitigation</h3>
+					<p style="font-style: italic; font-size: 0.95rem; color: #64748b; margin-bottom: 8px;">"Manual merging is the #1 cause of Regression Bugs in database development."</p>
+					<p>Ensures the database remains more stable and "compilable" after every merge by automating structural resolution.</p>
+				</div>
+				<div style="margin-bottom: 20px; border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>Developer Productivity</h3>
+					<p>Transforms hours of tedious manual review into seconds of automated processing. Reduced "Toil" and faster CI/CD pipelines.</p>
+				</div>
+				<div style="border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>Scalability</h3>
+					<p>Built on Node.js—lightweight, fast, and highly portable. Supports Bulk Directory Processing for massive repository migrations.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-card">
+			<h2>The Technical Edge</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Feature</th>
+						<th>Traditional Merge</th>
+						<th>SmartMerge</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td>Awareness</td><td>Text-Only (Agnostic)</td><td>Structural (SQL-Aware)</td></tr>
+					<tr><td>Param Reordering</td><td>Causes Conflict</td><td>Resolved Automatically</td></tr>
+					<tr><td>History Logs</td><td>Manual Merge Required</td><td>Automated Append</td></tr>
+					<tr><td>"Double-Fix" Detection</td><td>Causes Conflict</td><td>Auto-Resolved via Superset</td></tr>
+					<tr><td>Resolution Time</td><td>Minutes Per File</td><td>Milliseconds Per File</td></tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="content-card">
+			<h2>Conclusion</h2>
+			<p>SmartMerge isn't just a developer tool; it's an efficiency engine for the modern enterprise. By bringing structural intelligence to the oldest and most critical layer of the tech stack—the database—we solved a major productivity problem.</p>
+		</div>
+	</div>
+
+	<div class="divider"></div>
+
+	<!-- Case Study 2: Agentic ERP -->
+	<div class="case-study">
+		<div class="title-card">
+			<h1>Agentic ERP</h1>
+			<p style="font-size: 1.1rem; color: #64748b; margin-top: 10px;">Transforming Traditional ERP into an Agentic Ecosystem</p>
+		</div>
+
+		<div class="content-card">
+			<h2>Overview</h2>
+			<p>Traditional ERP systems have long been the backbone of business operations, but they are often characterized by rigid workflows and siloed data. This study explores a revolutionary architecture shift: Converting a traditional ERP into an <strong>Agentic System</strong> using LLMs, SLMs, and the Model Context Protocol (MCP), that we conceptualised for one of the largest manufacturing companies.</p>
+		</div>
+
+		<div class="content-card">
+			<h2>Core Architectural Pillars</h2>
+			<div style="margin: 20px 0;">
+				<div style="margin-bottom: 15px; border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>The Orchestrator Agent — Commander-in-Chief</h3>
+					<p>Interprets complex user intent, breaks down tasks, and routes them to specialized specialists.</p>
+				</div>
+				<div style="margin-bottom: 15px; border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>Specialized Sub-Agents — Domain Experts</h3>
+					<p>Utilize SLMs for cost-effective, high-speed execution in specific domains.</p>
+				</div>
+				<div style="border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>Dual-Tier Memory — Cognitive Continuity</h3>
+					<p>Short-term session context combined with long-term institutional knowledge for smarter decision making.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-card">
+			<h2>Why Deep Agents for Agentic ERP</h2>
+			<ol>
+				<li><strong>Intelligent Planning</strong> — The system doesn't just execute; it plans the most efficient path to a business goal.</li>
+				<li><strong>Context Engineering</strong> — Agents understand the 'Why' behind a request, not just the technical 'What'.</li>
+				<li><strong>Hyper-Customization</strong> — Tailor-made agent workflows for every department without core code modification.</li>
+				<li><strong>Developer Ecosystem</strong> — Standardized protocols (MCP) allow for easy expansion into new departments.</li>
+				<li><strong>Cost-Effectiveness</strong> — Strategic use of SLMs for domain tasks reduces token expenditure by up to 70%.</li>
+			</ol>
+		</div>
+
+		<div class="content-card">
+			<h2>Deep Agents Stack</h2>
+			<p>Built using the LangChain ecosystem:</p>
+			<ul>
+				<li><strong>LangChain</strong> — The foundational framework for composable LLM components and standard agent abstractions.</li>
+				<li><strong>LangGraph</strong> — To manage complex, stateful agentic workflows (cycles and decision trees).</li>
+				<li><strong>LangSmith</strong> — For real-time monitoring, debugging, and evaluating performance.</li>
+			</ul>
+		</div>
+
+		<div class="content-card">
+			<h2>The MCP Layer</h2>
+			<p>The Model Context Protocol (MCP) serves as the standardized bridge between our agents and the ERP's underlying tools and resources.</p>
+			<ul>
+				<li><strong>Tools</strong> — "Update Stock", "Approve Invoice", or "Send Email".</li>
+				<li><strong>Resources</strong> — Direct access to database schemas, documentation, and endpoints.</li>
+				<li><strong>Prompt Templates</strong> — Standardized interaction patterns for specific ERP workflows and compliance.</li>
+			</ul>
+		</div>
+
+		<div class="content-card">
+			<h2>The Future Is Agentic</h2>
+			<p>By wrapping traditional records in an Agentic Layer, we transformed passive databases into active business partners.</p>
+		</div>
+	</div>
+
+	<div class="divider"></div>
+
+	<!-- Case Study 3: Learning Ecosystem -->
+	<div class="case-study">
+		<div class="title-card">
+			<h1>Converting a Book into an Integrated Learning Ecosystem</h1>
+			<p style="font-size: 1.1rem; color: #64748b; margin-top: 10px;">From static book to dynamic, AI-powered learning platform.</p>
+		</div>
+
+		<div class="content-card">
+			<h2>Overview</h2>
+			<p>Advent AI is currently transforming traditional, static book content into a <strong>Comprehensive Learning Ecosystem</strong>. This initiative moves beyond simple digitization to create a unified digital environment that integrates high-quality content, active community engagement, and scalable commerce.</p>
+		</div>
+
+		<div class="content-card">
+			<h2>The Solution: A Modern Technical Architecture</h2>
+			<p>To ensure the platform is both powerful and user-friendly, Advent AI employs a cloud-native <strong>microservices architecture</strong>. This modular design allows different parts of the system—such as user management, payments, and progress tracking—to scale independently as the user base grows.</p>
+			<ul>
+				<li>
+					<strong>High-Performance Web & Mobile</strong> — The web experience is built with <strong>Next.js</strong> for near-instant page loads and strong search engine optimization. For mobile, <strong>React Native</strong> delivers a seamless experience across iOS and Android, including an <strong>Offline Mode</strong> that allows learners to download lessons and sync progress automatically when they reconnect.
+				</li>
+				<li>
+					<strong>Data Strategy</strong> — A polyglot data layer uses <strong>PostgreSQL</strong> for secure transactional data (such as payments and entitlements) and <strong>Redis</strong> for intelligent caching, ensuring that frequently accessed content loads instantly.
+				</li>
+			</ul>
+		</div>
+
+		<div class="content-card">
+			<h2>Integrated AI: Conversational Intelligence</h2>
+			<p>A core feature of the platform is its <strong>Intelligence Layer</strong>, which turns the book's material into an interactive, always-available resource.</p>
+			<ul>
+				<li>
+					<strong>AI Question-Answering (Q&A) Interface</strong> — Learners ask questions about the book's material in natural language. The AI processes these queries against a curated knowledge base derived from the book to provide immediate, context-aware answers.
+				</li>
+				<li>
+					<strong>Semantic Search</strong> — Instead of simple keyword matching, the system uses a <strong>vector database</strong> and embedding models to understand the intent behind a user's query. This allows learners to find relevant topics even if they do not use the exact terminology found in the text.
+				</li>
+				<li>
+					<strong>Personalized Learning Paths</strong> — An AI-driven engine analyzes user behavior and skill gaps to recommend specific modules, creating a personalized learning journey grounded in the book's curriculum.
+				</li>
+			</ul>
+		</div>
+
+		<div class="content-card">
+			<h2>Commerce and Security</h2>
+			<ul>
+				<li>
+					<strong>Global Monetization</strong> — The platform integrates <strong>Stripe</strong> and <strong>Razorpay</strong> to support flexible subscription models, one-time purchases, and automated access control across different global markets.
+				</li>
+				<li>
+					<strong>Enterprise-Grade Security</strong> — Data is protected with <strong>TLS 1.3</strong> encryption in transit and <strong>AES-256</strong> at rest. A Web Application Firewall (WAF) and DDoS protection ensure the platform remains secure and available at all times.
+				</li>
+			</ul>
+		</div>
+
+		<div class="content-card">
+			<h2>Conclusion</h2>
+			<p>Through <strong>Outcome-Focused Engineering</strong>, Advent AI is not just building a portal; it is creating a scalable business asset where technology serves the learner's journey. By integrating a conversational AI interface with a robust microservices backend, the static content of a book becomes a dynamic, interactive, and global learning platform.</p>
+		</div>
+	</div>
+
+	<div class="divider"></div>
+
+	<!-- Case Study 4: Senior Care -->
+	<div class="case-study">
+		<div class="title-card">
+			<h1>Senior Care Software Ecosystem</h1>
+			<p style="font-size: 1.1rem; color: #64748b; margin-top: 10px;">Transforming Elder Care Through Digital Solutions</p>
+		</div>
+
+		<div class="content-card">
+			<h2>Overview</h2>
+			<p>Advent AI serves as the primary software development partner for one of the established healthcare companies, who are venturing into the senior care space, architecting the digital infrastructure that powers their <strong>"Dependable. Always."</strong> promise. We maintain a sophisticated software ecosystem that transforms raw sensor data into actionable insights, ensuring that seniors live safely while staying connected to their families and caregivers.</p>
+		</div>
+
+		<div class="content-card">
+			<h2>Challenges Being Addressed</h2>
+			<ul>
+				<li><strong>Real-time Monitoring Gap</strong> — A lack of centralized systems to track health metrics and emergency alerts effectively.</li>
+				<li><strong>Social Isolation</strong> — "Urban Loneliness" resulting from fragmented communication between seniors and their families.</li>
+				<li><strong>Information Asymmetry</strong> — Family members often lack visibility into the daily well-being of their loved ones.</li>
+				<li><strong>Accessibility Barriers</strong> — Traditional software interfaces are often too complex for seniors with functional or cognitive declines.</li>
+			</ul>
+		</div>
+
+		<div class="content-card">
+			<h2>Advent AI Software Solution</h2>
+			<div style="margin: 20px 0;">
+				<div style="margin-bottom: 20px; border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>A. Companion App — For Seniors</h3>
+					<ul style="list-style: none; margin-left: 0;">
+						<li>✓ <strong>Simplified UI/UX</strong> — Large touch targets and intuitive navigation.</li>
+						<li>✓ <strong>One-Touch Assistance</strong> — Immediate gateway to emergency services.</li>
+						<li>✓ <strong>Daily Reminders</strong> — Automated alerts for medications.</li>
+					</ul>
+				</div>
+				<div style="margin-bottom: 20px; border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>B. Family Dashboard — For Families</h3>
+					<ul style="list-style: none; margin-left: 0;">
+						<li>✓ <strong>Health Analytics</strong> — Real-time sync of vital health metrics.</li>
+						<li>✓ <strong>Emergency Alerts</strong> — Instant notifications for fall detections.</li>
+						<li>✓ <strong>Device Management</strong> — Remote monitoring of safety sensors.</li>
+					</ul>
+				</div>
+				<div style="border-left: 4px solid #6C47FF; padding-left: 20px;">
+					<h3>C. Infrastructure — "Always On" Backend</h3>
+					<ul style="list-style: none; margin-left: 0;">
+						<li>✓ <strong>Data Orchestration</strong> — Processes signals from IoT endpoints.</li>
+						<li>✓ <strong>Service Integration</strong> — Interface for 24/7 response teams.</li>
+						<li>✓ <strong>Secure Storage</strong> — High-level encryption for health data.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-card">
+			<h2>Key Application Features</h2>
+			<ul>
+				<li><strong>Unified Health Profile</strong> — Aggregating data from multiple sources into a single, cohesive health record accessible by authorized family members.</li>
+				<li><strong>Multi-Channel Sync</strong> — Real-time state synchronization between Family App, Monitoring Dashboard, and Emergency Responders.</li>
+				<li><strong>Community Engagement</strong> — Digital social tools that help seniors connect with peers, directly addressing the challenge of urban loneliness.</li>
+			</ul>
+		</div>
+
+		<div class="content-card">
+			<h2>The Technical Edge</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Architecture Component</th>
+						<th>Standard Solutions</th>
+						<th>Advent AI Ecosystem</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td>Data Orchestration</td><td>Siloed Batch Processing</td><td>Real-time IoT Signal Routing</td></tr>
+					<tr><td>Alert Synchronization</td><td>Fragmented Notifications</td><td>Multi-Channel State Sync</td></tr>
+					<tr><td>UX Strategy</td><td>Generic Mobile Design</td><td>Senior-First Adaptive UI</td></tr>
+					<tr><td>Health Record System</td><td>Scattered Data Points</td><td>Unified Health Profile</td></tr>
+					<tr><td>Security Architecture</td><td>Standard Encryption</td><td>E2E HIPAA-Ready Protection</td></tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="content-card">
+			<h2>Conclusion</h2>
+			<p>As the consulting & development partner, Advent AI is architecting the future of care.</p>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div style="text-align: center; padding: 40px; margin-top: 60px; border-top: 1px solid #e2e8f0;">
+		<p style="color: #64748b; font-size: 0.9rem;">&copy; 2026 Advent AI. All rights reserved.</p>
+		<p style="color: #94a3b8; font-size: 0.85rem; margin-top: 10px;">For more information, visit www.adventaiservices.com</p>
+	</div>
+</body>
+</html>
